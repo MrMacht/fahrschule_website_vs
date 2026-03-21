@@ -10,7 +10,7 @@ export function Hero() {
         <div className="absolute inset-0">
           <Image
             src="/HeroNewHyundaiTucson.jpg"
-            alt="VS-Fahrschule Fahrzeug"
+            alt="VS Fahrschule Fahrzeug"
             fill
             priority
             className="h-full w-full scale-110 object-cover object-[68%_center] md:object-[88%_center]"
@@ -22,7 +22,7 @@ export function Hero() {
         <div className="relative z-10 mx-auto flex h-full max-w-7xl items-end px-6 pb-56 md:items-center md:pb-0">
           <div className="max-w-2xl space-y-8 text-white">
             <p className="inline-flex items-center rounded-full border border-white/25 bg-white/10 px-4 py-1 text-xs font-semibold uppercase tracking-[0.2em] backdrop-blur">
-              VS-Fahrschule • Sicher ans Ziel
+              VS Fahrschule • Sicher ans Ziel
             </p>
 
             <h1 className="text-balance text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl">

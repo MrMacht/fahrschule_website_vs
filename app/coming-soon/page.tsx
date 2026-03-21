@@ -71,7 +71,7 @@ export default function ComingSoon() {
             <Lock className="h-7 w-7 text-[#e91e8c]" />
           </div>
           <h1 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
-            VS-Fahrschule
+            VS Fahrschule
           </h1>
           <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#e91e8c]">
             Coming Soon
@@ -165,7 +165,7 @@ export default function ComingSoon() {
 
       {/* Footer */}
       <p className="absolute bottom-6 text-xs text-white/25">
-        © {new Date().getFullYear()} VS-Fahrschule. Alle Rechte vorbehalten.
+        © {new Date().getFullYear()} VS Fahrschule. Alle Rechte vorbehalten.
       </p>
     </div>
   )

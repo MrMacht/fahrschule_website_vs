@@ -56,7 +56,7 @@ export function AboutSections() {
           <div className="mx-auto mb-8 max-w-2xl text-center">
             <p className="mb-3 text-sm font-semibold uppercase tracking-widest text-primary">Über uns</p>
             <h2 className="text-balance text-3xl font-bold tracking-tight text-foreground md:text-5xl">
-              Hey, wir sind die VS-Fahrschule
+              Hey, wir sind die VS Fahrschule
             </h2>
             <p className="mx-auto mt-3 max-w-xl text-base leading-relaxed text-muted-foreground">
               Schön, dass du hier bist. Wir möchten uns kurz vorstellen: Wir arbeiten mit viel Herz, klarer Struktur

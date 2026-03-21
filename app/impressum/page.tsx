@@ -3,8 +3,8 @@ import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
 
 export const metadata: Metadata = {
-  title: "Impressum | VS-Fahrschule",
-  description: "Impressum der VS-Fahrschule",
+  title: "Impressum | VS Fahrschule",
+  description: "Impressum der VS Fahrschule",
 }
 
 export default function ImpressumPage() {

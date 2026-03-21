@@ -53,7 +53,7 @@ export function TeamSection() {
             <div className="relative mb-4 aspect-[4/3] overflow-hidden rounded-xl border border-border/70 bg-muted">
               <Image
                 src="/team-fahrschule.svg"
-                alt="VS-Fahrschule"
+                alt="VS Fahrschule"
                 fill
                 className="object-cover"
               />

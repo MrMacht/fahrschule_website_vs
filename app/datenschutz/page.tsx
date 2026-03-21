@@ -3,8 +3,8 @@ import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
 
 export const metadata: Metadata = {
-  title: "Datenschutz | VS-Fahrschule",
-  description: "Datenschutzerklärung der VS-Fahrschule",
+  title: "Datenschutz | VS Fahrschule",
+  description: "Datenschutzerklärung der VS Fahrschule",
 }
 
 export default function DatenschutzPage() {

@@ -24,7 +24,7 @@ export function Navbar() {
         <a href="/" className="flex items-center">
           <Image
             src="/Header-Logo.png"
-            alt="VS-Fahrschule Logo"
+            alt="VS Fahrschule Logo"
             width={140}
             height={40}
             className="h-6 w-auto"

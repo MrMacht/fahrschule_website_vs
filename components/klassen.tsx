@@ -101,7 +101,7 @@ export function Klassen() {
               "Intensivkurse und Ferienkurse verfügbar",
             ]}
             imageSrc="/2026HyundaiTucson.jpg"
-            imageAlt="VS-Fahrschule PKW - Cupra Formentor mit Fahrschul-Branding"
+            imageAlt="VS Fahrschule PKW - Cupra Formentor mit Fahrschul-Branding"
           />
 
           {/* Row 2: Motorrad - Text Left, Image Right */}
@@ -116,7 +116,7 @@ export function Klassen() {
               "Moderne Sportmaschinen mit VS-Branding",
             ]}
             imageSrc="/IMG_0226.PNG"
-            imageAlt="VS-Fahrschule Motorrad mit Fahrschul-Branding"
+            imageAlt="VS Fahrschule Motorrad mit Fahrschul-Branding"
             reverse
           />
         </div>

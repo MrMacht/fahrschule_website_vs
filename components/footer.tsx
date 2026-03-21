@@ -9,7 +9,7 @@ export function Footer() {
           <div>
             <Image
               src="/Header-Logo.png"
-              alt="VS-Fahrschule Logo"
+              alt="VS Fahrschule Logo"
               width={120}
               height={34}
               className="h-5 w-auto"
@@ -80,7 +80,7 @@ export function Footer() {
         </div>
 
         <div className="mt-12 border-t border-border pt-6 text-center text-xs text-muted-foreground">
-          &copy; {new Date().getFullYear()} VS-Fahrschule. Alle Rechte
+          &copy; {new Date().getFullYear()} VS Fahrschule. Alle Rechte
           vorbehalten.
         </div>
       </div>

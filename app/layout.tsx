@@ -11,9 +11,9 @@ export const viewport: Viewport = {
 }
 
 export const metadata: Metadata = {
-  title: 'VS-Fahrschule | Deine moderne Fahrschule',
+  title: 'VS Fahrschule | Deine moderne Fahrschule',
   description:
-    'VS-Fahrschule - Dein Weg zum Führerschein. PKW und Motorrad Führerschein in professioneller Umgebung. Jetzt anmelden!',
+    'VS Fahrschule - Dein Weg zum Führerschein. PKW und Motorrad Führerschein in professioneller Umgebung. Jetzt anmelden!',
   icons: {
     icon: [
       {
