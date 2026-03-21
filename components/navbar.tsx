@@ -48,11 +48,11 @@ export function Navbar() {
         {/* Desktop CTA */}
         <div className="hidden items-center gap-3 md:flex">
           <a
-            href="tel:+4901234567890"
+            href="tel:015225922006"
             className="flex items-center gap-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
           >
             <Phone className="h-4 w-4" />
-            0123 456 789
+            015225922006
           </a>
           <Button asChild>
             <a href="/#kontakt">Jetzt anmelden</a>
@@ -91,11 +91,11 @@ export function Navbar() {
           </ul>
           <div className="mt-6 flex flex-col gap-3">
             <a
-              href="tel:+4901234567890"
+              href="tel:015225922006"
               className="flex items-center gap-2 text-sm font-medium text-muted-foreground"
             >
               <Phone className="h-4 w-4" />
-              0123 456 789
+              015225922006
             </a>
             <Button asChild className="w-full">
               <a href="/#kontakt">Jetzt anmelden</a>

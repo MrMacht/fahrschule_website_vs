@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button"
 
 export function Hero() {
   return (
-    <section className="relative h-[120vh] overflow-hidden">
+    <section className="relative h-[110vh] overflow-hidden md:h-[120vh]">
       <div className="relative h-full">
         <div className="absolute inset-0">
           <Image
@@ -15,12 +15,12 @@ export function Hero() {
             priority
             className="h-full w-full scale-110 object-cover object-[68%_center] md:object-[88%_center]"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/75 via-black/45 to-black/20" />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/55 to-black/25" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/20 md:from-black/60 md:via-black/20 md:to-transparent" />
         </div>
 
-        <div className="relative z-10 mx-auto flex h-full max-w-7xl items-center px-6">
-          <div className="max-w-2xl space-y-6 text-white">
+        <div className="relative z-10 mx-auto flex h-full max-w-7xl items-end px-6 pb-56 md:items-center md:pb-0">
+          <div className="max-w-2xl space-y-8 text-white">
             <p className="inline-flex items-center rounded-full border border-white/25 bg-white/10 px-4 py-1 text-xs font-semibold uppercase tracking-[0.2em] backdrop-blur">
               VS-Fahrschule • Sicher ans Ziel
             </p>
@@ -35,21 +35,23 @@ export function Hero() {
               Führerschein.
             </p>
 
-            <div className="flex flex-wrap gap-3 pt-2">
-              <Button size="lg" asChild>
+            <div className="flex flex-col gap-3 pt-2 sm:flex-row sm:flex-wrap">
+              <Button size="lg" className="w-full sm:w-auto" asChild>
                 <a href="#kontakt">
                   Jetzt anmelden
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </a>
               </Button>
-              <Button size="lg" variant="secondary" asChild>
+              <Button size="lg" variant="secondary" className="w-full sm:w-auto" asChild>
                 <a href="#kalender">Theorie-Termine ansehen</a>
               </Button>
             </div>
 
-            <div className="flex flex-wrap gap-x-6 gap-y-2 pt-2 text-sm text-white/80">
+            <div className="flex flex-wrap items-center gap-x-2 gap-y-1 pt-2 text-sm text-white/80">
               <span>Flexible Fahrstunden</span>
+              <span className="text-white/40">·</span>
               <span>Erfahrene Fahrlehrer</span>
+              <span className="text-white/40">·</span>
               <span>Schneller zum Führerschein</span>
             </div>
           </div>

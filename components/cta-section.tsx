@@ -21,7 +21,7 @@ export function CtaSection() {
 
             <div className="flex flex-wrap gap-4 pt-2">
               <Button size="lg" asChild>
-                <a href="#kontakt">
+                <a href="tel:015225922006">
                   Jetzt anrufen
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </a>
@@ -47,7 +47,9 @@ export function CtaSection() {
                   <p className="text-sm font-medium text-muted-foreground">
                     Telefon
                   </p>
-                  <p className="text-base font-semibold text-zinc-100">folgt</p>
+                  <a href="tel:015225922006" className="text-base font-semibold text-zinc-100 transition-colors hover:text-primary">
+                    015225922006
+                  </a>
                 </div>
               </div>
 

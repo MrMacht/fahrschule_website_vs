@@ -7,13 +7,6 @@ export const metadata: Metadata = {
   description: "Impressum der VS-Fahrschule",
 }
 
-const missingImpressumData = [
-  "Telefonnummer (verbindlich)",
-  "Falls vorhanden: Handelsregister + Registernummer",
-  "Falls vorhanden: USt-IdNr. und/oder Wirtschafts-Identifikationsnummer",
-  "Verbraucherstreitbeilegung: Teilnahmeerklärung",
-]
-
 export default function ImpressumPage() {
   return (
     <>
@@ -33,21 +26,7 @@ export default function ImpressumPage() {
         </section>
 
         <section className="mx-auto max-w-4xl px-6 pb-20 pt-10 md:pt-12">
-        <p className="text-sm leading-relaxed text-muted-foreground">
-          Diese Seite ist als rechtssicheres Grundgerüst vorbereitet. Alle mit "[BITTE ERGÄNZEN]" markierten Angaben
-          müssen vor Veröffentlichung vervollständigt werden.
-        </p>
-
-        <div className="mt-8 rounded-xl border border-amber-500/40 bg-amber-500/10 p-5">
-          <h2 className="text-base font-semibold text-foreground">Noch fehlende Pflichtangaben</h2>
-          <ul className="mt-3 space-y-1.5 text-sm text-muted-foreground">
-            {missingImpressumData.map((item) => (
-              <li key={item}>• {item}</li>
-            ))}
-          </ul>
-        </div>
-
-        <div className="mt-10 space-y-8 text-sm leading-relaxed text-muted-foreground">
+        <div className="mt-2 space-y-8 text-sm leading-relaxed text-muted-foreground">
           <section>
             <h2 className="text-lg font-semibold text-foreground">Angaben gemäß § 5 TMG</h2>
             <p className="mt-2">
@@ -65,24 +44,22 @@ export default function ImpressumPage() {
           <section>
             <h2 className="text-lg font-semibold text-foreground">Kontakt</h2>
             <p className="mt-2">
-              Telefon: folgt<br />
-              E-Mail: info@vsfahrschule.com
+              Telefon: <a href="tel:015225922006" className="hover:text-foreground transition-colors">015225922006</a><br />
+              E-Mail: <a href="mailto:info@vsfahrschule.com" className="hover:text-foreground transition-colors">info@vsfahrschule.com</a>
             </p>
           </section>
 
           <section>
-            <h2 className="text-lg font-semibold text-foreground">Registereintrag (falls vorhanden)</h2>
+            <h2 className="text-lg font-semibold text-foreground">Registereintrag</h2>
             <p className="mt-2">
-              Handelsregister: folgt kommende Woche<br />
-              Registernummer: folgt kommende Woche
+              Handelsregister: HRB 101052
             </p>
           </section>
 
           <section>
-            <h2 className="text-lg font-semibold text-foreground">Umsatzsteuer-ID / Wirtschafts-ID</h2>
+            <h2 className="text-lg font-semibold text-foreground">Steuernummer</h2>
             <p className="mt-2">
-              Umsatzsteuer-Identifikationsnummer gemäß § 27 a UStG: folgt kommende Woche<br />
-              Wirtschafts-Identifikationsnummer gemäß § 139c AO: folgt kommende Woche
+              Steuernummer: 1924765209
             </p>
           </section>
 
@@ -100,29 +77,36 @@ export default function ImpressumPage() {
               Es gelten insbesondere folgende berufsrechtliche Regelungen:<br />
               Fahrlehrergesetz (FahrlG), Fahrschüler-Ausbildungsordnung (FahrschAusbO), ggf. weitere landesrechtliche
               Vorschriften.<br />
-              Fundstellen: https://www.gesetze-im-internet.de/fahrlg_2017/ und
-              https://www.gesetze-im-internet.de/fahrschausbo_2012/
+              Fundstellen:{" "}
+              <a href="https://www.gesetze-im-internet.de/fahrlg_2017/" className="hover:text-foreground transition-colors" target="_blank" rel="noopener noreferrer">
+                Fahrlehrergesetz
+              </a>{" "}und{" "}
+              <a href="https://www.gesetze-im-internet.de/fahrschausbo_2012/" className="hover:text-foreground transition-colors" target="_blank" rel="noopener noreferrer">
+                FahrschAusbO
+              </a>
             </p>
           </section>
 
           <section>
             <h2 className="text-lg font-semibold text-foreground">EU-Streitbeilegung</h2>
             <p className="mt-2">
-              Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung (OS) bereit:
-              https://ec.europa.eu/consumers/odr/
+              Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung (OS) bereit:{" "}
+              <a href="https://ec.europa.eu/consumers/odr/" className="hover:text-foreground transition-colors" target="_blank" rel="noopener noreferrer">
+                https://ec.europa.eu/consumers/odr/
+              </a>
             </p>
           </section>
 
           <section>
             <h2 className="text-lg font-semibold text-foreground">Verbraucherstreitbeilegung / Universalschlichtungsstelle</h2>
             <p className="mt-2">
-              [BITTE ERGÄNZEN: Erklärung, ob Teilnahme an Streitbeilegungsverfahren gewünscht/gesetzlich verpflichtend
-              ist.]
+              Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer
+              Verbraucherschlichtungsstelle teilzunehmen.
             </p>
           </section>
 
           <section>
-            <h2 className="text-lg font-semibold text-foreground">Redaktionell verantwortlich (falls relevant)</h2>
+            <h2 className="text-lg font-semibold text-foreground">Redaktionell verantwortlich</h2>
             <p className="mt-2">Viola Buchhold und Sophie Buchhold, Hauptstraße 100, 63579 Freigericht</p>
           </section>
         </div>

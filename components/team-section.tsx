@@ -53,15 +53,15 @@ export function TeamSection() {
             <div className="relative mb-4 aspect-[4/3] overflow-hidden rounded-xl border border-border/70 bg-muted">
               <Image
                 src="/team-fahrschule.svg"
-                alt="Platzhalterbild Fahrschule"
+                alt="VS-Fahrschule"
                 fill
                 className="object-cover"
               />
             </div>
             <h3 className="text-lg font-semibold text-card-foreground">Unsere Fahrschule</h3>
             <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-              Hier findet Theorie, Beratung und ein großer Teil der Organisation statt. Sobald du dein echtes Foto
-              hast, tauschen wir den Platzhalter einfach 1:1 aus.
+              Hauptstraße 100, 63579 Freigericht. Hier findet Theorie, Beratung und ein großer Teil der Organisation statt –
+              persönlich, herzlich und mit viel Leidenschaft fürs Fahren.
             </p>
           </article>
         </div>
