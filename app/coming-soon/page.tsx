@@ -1,14 +1,36 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-import { Lock, ArrowRight, Loader2 } from 'lucide-react'
+import { Lock, ArrowRight, Loader2, Flag } from 'lucide-react'
+
+const OPENING = new Date('2026-04-18T14:00:00')
+
+function useCountdown(target: Date) {
+  const calc = () => {
+    const diff = target.getTime() - Date.now()
+    if (diff <= 0) return { days: 0, hours: 0, minutes: 0, seconds: 0 }
+    return {
+      days: Math.floor(diff / 86400000),
+      hours: Math.floor((diff % 86400000) / 3600000),
+      minutes: Math.floor((diff % 3600000) / 60000),
+      seconds: Math.floor((diff % 60000) / 1000),
+    }
+  }
+  const [time, setTime] = useState(calc)
+  useEffect(() => {
+    const id = setInterval(() => setTime(calc()), 1000)
+    return () => clearInterval(id)
+  }, [])
+  return time
+}
 
 export default function ComingSoon() {
   const [password, setPassword] = useState('')
   const [error, setError] = useState(false)
   const [loading, setLoading] = useState(false)
   const router = useRouter()
+  const countdown = useCountdown(OPENING)
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
@@ -56,10 +78,46 @@ export default function ComingSoon() {
           </p>
         </div>
 
+        {/* Eröffnungs-Countdown */}
+        <div className="space-y-3">
+          <div className="flex items-center justify-center gap-1.5 text-white/50">
+            <Flag className="h-3.5 w-3.5 text-[#e91e8c]" />
+            <span className="text-xs font-semibold uppercase tracking-widest">
+              Eröffnung&nbsp;·&nbsp;18. April · 14–18 Uhr
+            </span>
+          </div>
+          <div className="grid grid-cols-4 gap-2">
+            {[
+              { value: countdown.days, label: 'Tage' },
+              { value: countdown.hours, label: 'Std' },
+              { value: countdown.minutes, label: 'Min' },
+              { value: countdown.seconds, label: 'Sek' },
+            ].map(({ value, label }) => (
+              <div
+                key={label}
+                className="flex flex-col items-center justify-center rounded-xl bg-white/5 py-3 ring-1 ring-white/10"
+              >
+                <span className="text-2xl font-bold tabular-nums text-white sm:text-3xl">
+                  {String(value).padStart(2, '0')}
+                </span>
+                <span className="mt-0.5 text-[10px] font-semibold uppercase tracking-widest text-white/40">
+                  {label}
+                </span>
+              </div>
+            ))}
+          </div>
+          <p className="text-sm font-semibold text-white/70">
+            Ab dem 18.04. wird durchgestartet.
+          </p>
+          <p className="text-base font-bold text-[#e91e8c]">
+            Mit VS‑Fahrschule.
+          </p>
+        </div>
+
         {/* Info-Text */}
         <p className="text-base leading-relaxed text-white/60">
-          Wir arbeiten gerade an unserer neuen Website. Gib das Passwort ein,
-          um eine Vorschau zu sehen.
+          Unsere Website ist noch nicht ganz fertig. Gib das Passwort ein, um
+          schon jetzt einen Blick hinter die Kulissen zu werfen.
         </p>
 
         {/* Passwort-Formular */}
