@@ -1,0 +1,28 @@
+import { NextResponse } from 'next/server'
+import type { NextRequest } from 'next/server'
+
+export function middleware(request: NextRequest) {
+  const { pathname } = request.nextUrl
+
+  // Lass die Coming-Soon-Seite und API-Routen immer durch
+  if (
+    pathname.startsWith('/coming-soon') ||
+    pathname.startsWith('/api/') ||
+    pathname.startsWith('/_next/') ||
+    pathname.startsWith('/favicon') ||
+    pathname.match(/\.(png|svg|ico|jpg|jpeg|webp|gif|woff|woff2|ttf|otf)$/)
+  ) {
+    return NextResponse.next()
+  }
+
+  const cookie = request.cookies.get('site_access')
+  if (cookie?.value === 'granted') {
+    return NextResponse.next()
+  }
+
+  return NextResponse.redirect(new URL('/coming-soon', request.url))
+}
+
+export const config = {
+  matcher: ['/((?!_next/static|_next/image).*)'],
+}

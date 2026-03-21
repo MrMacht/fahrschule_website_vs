@@ -12,7 +12,7 @@ export function CtaSection() {
               Kontakt
             </p>
             <h2 className="text-balance text-3xl font-bold tracking-tight text-white md:text-4xl">
-              Bereit fur deinen Fuhrerschein?
+              Bereit für deinen Führerschein?
             </h2>
             <p className="max-w-lg text-lg leading-relaxed text-zinc-300">
               Melde dich jetzt an oder vereinbare einen kostenlosen
@@ -21,19 +21,19 @@ export function CtaSection() {
 
             <div className="flex flex-wrap gap-4 pt-2">
               <Button size="lg" asChild>
-                <a href="tel:+4901234567890">
+                <a href="#kontakt">
                   Jetzt anrufen
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </a>
               </Button>
               <Button size="lg" variant="outline" asChild>
-                <a href="mailto:info@vs-fahrschule.de">E-Mail schreiben</a>
+                <a href="mailto:info@vsfahrschule.com">E-Mail schreiben</a>
               </Button>
             </div>
           </div>
 
           {/* Right - Contact Info */}
-          <div className="flex flex-col gap-6 rounded-2xl border border-zinc-700/50 bg-[linear-gradient(#1b1f2800_22%,#1b1f28e6_43%,#1b1f28_52%)] p-8 shadow-sm">
+          <div className="flex flex-col gap-6 rounded-2xl border border-white/20 bg-white/[0.04] p-8 shadow-lg">
             <h3 className="text-xl font-semibold text-white">
               Unsere Kontaktdaten
             </h3>
@@ -47,12 +47,7 @@ export function CtaSection() {
                   <p className="text-sm font-medium text-muted-foreground">
                     Telefon
                   </p>
-                  <a
-                    href="tel:+4901234567890"
-                    className="text-base font-semibold text-zinc-100 transition-colors hover:text-primary"
-                  >
-                    0123 456 789 0
-                  </a>
+                  <p className="text-base font-semibold text-zinc-100">folgt</p>
                 </div>
               </div>
 
@@ -65,10 +60,10 @@ export function CtaSection() {
                     E-Mail
                   </p>
                   <a
-                    href="mailto:info@vs-fahrschule.de"
+                    href="mailto:info@vsfahrschule.com"
                     className="text-base font-semibold text-zinc-100 transition-colors hover:text-primary"
                   >
-                    info@vs-fahrschule.de
+                    info@vsfahrschule.com
                   </a>
                 </div>
               </div>
@@ -82,18 +77,18 @@ export function CtaSection() {
                     Adresse
                   </p>
                   <p className="text-base font-semibold text-zinc-100">
-                    Hauptstrasse 1, 12345 Musterstadt
+                    Hauptstraße 100, 63579 Freigericht
                   </p>
                 </div>
               </div>
             </div>
 
-            <div className="mt-2 rounded-lg bg-zinc-500/60 p-4">
+            <div className="mt-2 rounded-lg border border-white/20 bg-white/[0.07] p-4">
               <p className="text-sm text-zinc-300">
                 <span className="font-semibold text-white">
-                  Offnungszeiten:
+                  Öffnungszeiten:
                 </span>{" "}
-                Mo - Fr: 09:00 - 18:00 Uhr | Sa: 10:00 - 14:00 Uhr
+                Büro: Dienstag und Donnerstag 16:30 - 18:30 Uhr (sowie nach vorheriger telefonischer Absprache). Telefonische Bürozeiten: Montag und Mittwoch 10:00 - 12:00 Uhr.
               </p>
             </div>
           </div>

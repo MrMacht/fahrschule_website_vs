@@ -79,11 +79,11 @@ export function Klassen() {
             Unsere Klassen
           </p>
           <h2 className="text-balance text-3xl font-bold tracking-tight text-foreground md:text-4xl">
-            Finde die passende Fuhrerscheinklasse
+            Finde die passende Führerscheinklasse
           </h2>
           <p className="mt-4 text-lg leading-relaxed text-muted-foreground">
-            Vom PKW uber das Motorrad bis hin zum LKW - bei uns findest du das
-            passende Angebot fur deinen Fuhrerschein.
+            Vom PKW über das Motorrad - bei uns findest du das
+            passende Angebot für deinen Führerschein.
           </p>
         </div>
 
@@ -92,47 +92,32 @@ export function Klassen() {
           {/* Row 1: PKW - Image Left, Text Right */}
           <KlasseRow
             badge="Klasse B"
-            title="PKW-Fuhrerschein"
-            description="Der Klassiker - mit dem Klasse B Fuhrerschein bist du unabhangig und mobil. Unsere modernen Cupra Formentor machen jede Fahrstunde zum Erlebnis."
+            title="PKW-Führerschein"
+            description="Der Klassiker - mit dem Klasse B Führerschein bist du unabhängig und mobil. Unsere modernen Cupra Formentor machen jede Fahrstunde zum Erlebnis."
             features={[
               "Ab 17 Jahren (begleitetes Fahren) oder ab 18 Jahren",
               "Moderne Fahrzeuge mit aktueller Sicherheitstechnik",
               "Flexible Fahrstundenplanung nach deinem Zeitplan",
-              "Intensivkurse und Ferienkurse verfugbar",
+              "Intensivkurse und Ferienkurse verfügbar",
             ]}
-            imageSrc="/Formentor.JPEG"
+            imageSrc="/2026HyundaiTucson.jpg"
             imageAlt="VS-Fahrschule PKW - Cupra Formentor mit Fahrschul-Branding"
           />
 
           {/* Row 2: Motorrad - Text Left, Image Right */}
           <KlasseRow
             badge="Klasse A / A2 / A1"
-            title="Motorrad-Fuhrerschein"
-            description="Freiheit auf zwei Radern! Ob Leichtkraftrad oder schwere Maschine - wir bringen dich sicher durch den Verkehr."
+            title="Motorrad-Führerschein"
+            description="Freiheit auf zwei Rädern! Ob Leichtkraftrad oder schwere Maschine - wir bringen dich sicher durch den Verkehr."
             features={[
               "Alle Motorradklassen: A1, A2 und offenes A",
-              "Schrittweise Ausbildung vom Grundfahrzeug aufwarts",
+              "Schrittweise Ausbildung vom Grundfahrzeug aufwärts",
               "Sicherheitstraining inklusive",
               "Moderne Sportmaschinen mit VS-Branding",
             ]}
             imageSrc="/IMG_0226.PNG"
             imageAlt="VS-Fahrschule Motorrad mit Fahrschul-Branding"
             reverse
-          />
-
-          {/* Row 3: LKW - Image Left, Text Right */}
-          <KlasseRow
-            badge="Klasse C / CE"
-            title="LKW-Fuhrerschein"
-            description="Dein Einstieg in die Berufskraftfahrt. Mit unseren Sattelzugen und erfahrenen Ausbildern wirst du optimal vorbereitet."
-            features={[
-              "Klasse C und CE fur Sattelzuge",
-              "BKF-Weiterbildung und Berufskraftfahrerqualifikation",
-              "Praxisnahe Ausbildung mit modernen Scania-Sattelzugen",
-              "Individuelle Terminplanung fur Berufstatige",
-            ]}
-            imageSrc="/IMG_0225.PNG"
-            imageAlt="VS-Fahrschule LKW - Scania Sattelzug mit Fahrschul-Branding"
           />
         </div>
       </div>

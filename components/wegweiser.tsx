@@ -37,14 +37,14 @@ const steps = [
     number: "04",
     title: "Praktische Fahrstunden",
     description:
-      "Ab auf die Strasse! Mit modernen Fahrzeugen und erfahrenen Fahrlehrern lernst du sicher und entspannt.",
+      "Ab auf die Straße! Mit modernen Fahrzeugen und erfahrenen Fahrlehrern lernst du sicher und entspannt.",
     icon: Car,
   },
   {
     number: "05",
-    title: "Prufung bestehen",
+    title: "Prüfung bestehen",
     description:
-      "Erst Theorie, dann Praxis - und schon hast du deinen Fuhrerschein in der Tasche. Wir drucken dir die Daumen!",
+      "Erst Theorie, dann Praxis - und schon hast du deinen Führerschein in der Tasche. Wir drücken dir die Daumen!",
     icon: Award,
   },
 ]
@@ -59,10 +59,10 @@ export function Wegweiser() {
         {/* Header */}
         <div className="mb-10 max-w-2xl">
           <p className="mb-3 text-sm font-semibold uppercase tracking-widest text-primary">
-            Fuhrerschein-Wegweiser
+            Führerschein-Wegweiser
           </p>
           <h2 className="text-balance text-3xl font-bold tracking-tight text-white md:text-4xl">
-            In 5 Schritten zum Fuhrerschein
+            In 5 Schritten zum Führerschein
           </h2>
         </div>
 
@@ -88,7 +88,7 @@ export function Wegweiser() {
                       ? "border-primary bg-primary text-primary-foreground scale-110"
                       : i < active
                         ? "border-primary bg-primary/20 text-primary"
-                        : "border-white/20 bg-[#14181f] text-white/40 group-hover:border-white/50 group-hover:text-white/70"
+                        : "border-white/30 bg-white/[0.03] text-white/45 group-hover:border-white/60 group-hover:text-white/80"
                   }`}
                 >
                   {s.number}
@@ -106,7 +106,7 @@ export function Wegweiser() {
         </div>
 
         {/* Active step content */}
-        <div className="rounded-2xl border border-zinc-700/50 bg-[linear-gradient(#1b1f2800_22%,#1b1f28e6_43%,#1b1f28_52%)] p-6 md:p-8">
+        <div className="rounded-2xl border border-white/20 bg-white/[0.04] p-6 shadow-lg md:p-8">
           <div className="flex items-start gap-5">
             <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-primary/10">
               <step.icon className="h-6 w-6 text-primary" />

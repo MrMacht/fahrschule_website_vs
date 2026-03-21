@@ -6,10 +6,12 @@ import { Menu, X, Phone } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
 const navLinks = [
-  { label: "Klassen", href: "#klassen" },
-  { label: "Wegweiser", href: "#wegweiser" },
-  { label: "Theorie-Kalender", href: "#kalender" },
-  { label: "Kontakt", href: "#kontakt" },
+  { label: "Klassen", href: "/#klassen" },
+  { label: "Standorte", href: "/#standorte" },
+  { label: "Über uns", href: "/#ueber-uns" },
+  { label: "Wegweiser", href: "/#wegweiser" },
+  { label: "Theorie-Kalender", href: "/#kalender" },
+  { label: "Kontakt", href: "/#kontakt" },
 ]
 
 export function Navbar() {
@@ -19,7 +21,7 @@ export function Navbar() {
     <header className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-lg border-b border-border">
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
         {/* Logo */}
-        <a href="#" className="flex items-center">
+        <a href="/" className="flex items-center">
           <Image
             src="/Header-Logo.png"
             alt="VS-Fahrschule Logo"
@@ -53,7 +55,7 @@ export function Navbar() {
             0123 456 789
           </a>
           <Button asChild>
-            <a href="#kontakt">Jetzt anmelden</a>
+            <a href="/#kontakt">Jetzt anmelden</a>
           </Button>
         </div>
 
@@ -61,7 +63,7 @@ export function Navbar() {
         <button
           className="flex items-center justify-center md:hidden"
           onClick={() => setMobileOpen(!mobileOpen)}
-          aria-label={mobileOpen ? "Navigation schliessen" : "Navigation oeffnen"}
+          aria-label={mobileOpen ? "Navigation schließen" : "Navigation öffnen"}
         >
           {mobileOpen ? (
             <X className="h-6 w-6 text-foreground" />
@@ -96,7 +98,7 @@ export function Navbar() {
               0123 456 789
             </a>
             <Button asChild className="w-full">
-              <a href="#kontakt">Jetzt anmelden</a>
+              <a href="/#kontakt">Jetzt anmelden</a>
             </Button>
           </div>
         </div>

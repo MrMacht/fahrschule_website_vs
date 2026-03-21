@@ -1,6 +1,5 @@
 import type { Metadata, Viewport } from 'next'
 import { Inter } from 'next/font/google'
-import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
 
 const _inter = Inter({ subsets: ['latin'] })
@@ -14,7 +13,7 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   title: 'VS-Fahrschule | Deine moderne Fahrschule',
   description:
-    'VS-Fahrschule - Dein Weg zum Fuhrerschein. PKW, Motorrad und LKW Fuhrerschein in professioneller Umgebung. Jetzt anmelden!',
+    'VS-Fahrschule - Dein Weg zum Führerschein. PKW und Motorrad Führerschein in professioneller Umgebung. Jetzt anmelden!',
   icons: {
     icon: [
       {
@@ -43,7 +42,6 @@ export default function RootLayout({
     <html lang="de">
       <body className="font-sans antialiased">
         {children}
-        <Analytics />
       </body>
     </html>
   )

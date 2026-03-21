@@ -9,7 +9,7 @@ export function Hero() {
       <div className="relative h-full">
         <div className="absolute inset-0">
           <Image
-            src="/Hero_Clean.jpeg"
+            src="/HeroNewHyundaiTucson.jpg"
             alt="VS-Fahrschule Fahrzeug"
             fill
             priority
@@ -26,13 +26,13 @@ export function Hero() {
             </p>
 
             <h1 className="text-balance text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl">
-              Dein Fuehrerschein. Modern lernen. Sicher fahren.
+              Dein Führerschein. Modern lernen. Sicher fahren.
             </h1>
 
             <p className="max-w-xl text-base leading-relaxed text-white/85 md:text-lg">
-              Persoenliche Betreuung, moderne Fahrzeuge und flexible
-              Fahrstunden. Wir begleiten dich Schritt fuer Schritt zu deinem
-              Fuehrerschein.
+              Persönliche Betreuung, moderne Fahrzeuge und flexible
+              Fahrstunden. Wir begleiten dich Schritt für Schritt zu deinem
+              Führerschein.
             </p>
 
             <div className="flex flex-wrap gap-3 pt-2">
@@ -50,7 +50,7 @@ export function Hero() {
             <div className="flex flex-wrap gap-x-6 gap-y-2 pt-2 text-sm text-white/80">
               <span>Flexible Fahrstunden</span>
               <span>Erfahrene Fahrlehrer</span>
-              <span>Schneller zum Fuehrerschein</span>
+              <span>Schneller zum Führerschein</span>
             </div>
           </div>
         </div>
