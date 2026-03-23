@@ -1,4 +1,6 @@
 import type { Metadata } from "next"
+import { cookies } from "next/headers"
+import { redirect } from "next/navigation"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
 
@@ -7,7 +9,12 @@ export const metadata: Metadata = {
   description: "Impressum der VS Fahrschule",
 }
 
-export default function ImpressumPage() {
+export default async function ImpressumPage() {
+  const cookieStore = await cookies()
+  if (cookieStore.get('site_access')?.value !== 'granted') {
+    redirect('/coming-soon')
+  }
+
   return (
     <>
       <Navbar />

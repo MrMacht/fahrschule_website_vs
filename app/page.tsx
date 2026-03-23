@@ -1,3 +1,5 @@
+import { cookies } from "next/headers"
+import { redirect } from "next/navigation"
 import { Navbar } from "@/components/navbar"
 import { Hero } from "@/components/hero"
 import { Klassen } from "@/components/klassen"
@@ -9,7 +11,12 @@ import { Kalender } from "@/components/kalender"
 import { CtaSection } from "@/components/cta-section"
 import { Footer } from "@/components/footer"
 
-export default function Home() {
+export default async function Home() {
+  const cookieStore = await cookies()
+  if (cookieStore.get('site_access')?.value !== 'granted') {
+    redirect('/coming-soon')
+  }
+
   return (
     <>
       <Navbar />
