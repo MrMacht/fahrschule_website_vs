@@ -10,9 +10,9 @@ export function Footer() {
             <Image
               src="/Header-Logo.png"
               alt="VS Fahrschule Logo"
-              width={120}
-              height={34}
-              className="h-5 w-auto"
+              width={200}
+              height={57}
+              className="h-8 w-auto"
             />
             <p className="mt-3 max-w-xs text-sm leading-relaxed text-muted-foreground">
               Deine moderne Fahrschule für PKW und Motorrad.

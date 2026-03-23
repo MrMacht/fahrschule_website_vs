@@ -25,9 +25,9 @@ export function Navbar() {
           <Image
             src="/Header-Logo.png"
             alt="VS Fahrschule Logo"
-            width={140}
-            height={40}
-            className="h-6 w-auto"
+            width={200}
+            height={86}
+            className="h-8 w-auto"
           />
         </a>
 
