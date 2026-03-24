@@ -2,38 +2,44 @@
 
 import { useMemo, useState } from "react"
 import { Badge } from "@/components/ui/badge"
-import { ChevronLeft, ChevronRight, Clock, MapPin } from "lucide-react"
+import { CalendarDays, ChevronLeft, ChevronRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import kalenderTermine from "@/lib/kalender-termine.json"
 
-interface KalenderEvent {
+interface KalenderTermin {
   datum: string
-  standort: string
-  farbe: string
+  kurs_typ: string
+  block_id: string
+  block_tag: number
+  lektionen: number[]
+}
+
+interface KursTyp {
+  id: string
+  label: string
   hex: string
-  inhalt: string
+  lektionen_gesamt: number
+  beschreibung: string
+}
+
+interface Lektion {
+  nummer: number
+  thema: string
+  kurs_typ: string
 }
 
 interface KalenderDaten {
   jahr: number
   lehrplan_info: string
-  kalender_events: KalenderEvent[]
+  kurs_typen: KursTyp[]
+  lehrplan: Lektion[]
+  termine: KalenderTermin[]
 }
 
 const weekdayNames = ["So", "Mo", "Di", "Mi", "Do", "Fr", "Sa"]
 const monthNames = [
-  "Januar",
-  "Februar",
-  "März",
-  "April",
-  "Mai",
-  "Juni",
-  "Juli",
-  "August",
-  "September",
-  "Oktober",
-  "November",
-  "Dezember",
+  "Januar", "Februar", "März", "April", "Mai", "Juni",
+  "Juli", "August", "September", "Oktober", "November", "Dezember",
 ]
 
 function parseIsoDate(dateString: string) {
@@ -58,111 +64,121 @@ function isSameDay(a: Date, b: Date) {
 
 function hexToRgba(hexColor: string, alpha: number) {
   const cleaned = hexColor.replace("#", "")
-  if (cleaned.length !== 6) {
-    return `rgba(0, 0, 0, ${alpha})`
-  }
-
+  if (cleaned.length !== 6) return `rgba(0, 0, 0, ${alpha})`
   const r = Number.parseInt(cleaned.slice(0, 2), 16)
   const g = Number.parseInt(cleaned.slice(2, 4), 16)
   const b = Number.parseInt(cleaned.slice(4, 6), 16)
-
   return `rgba(${r}, ${g}, ${b}, ${alpha})`
 }
 
 function getContrastTextColor(hexColor: string) {
   const cleaned = hexColor.replace("#", "")
-  if (cleaned.length !== 6) {
-    return "#111827"
-  }
-
+  if (cleaned.length !== 6) return "#111827"
   const r = Number.parseInt(cleaned.slice(0, 2), 16)
   const g = Number.parseInt(cleaned.slice(2, 4), 16)
   const b = Number.parseInt(cleaned.slice(4, 6), 16)
   const luminance = (r * 299 + g * 587 + b * 114) / 1000
-
   return luminance >= 140 ? "#111827" : "#F9FAFB"
+}
+
+function formatShortDate(date: Date) {
+  return `${date.getDate()}. ${monthNames[date.getMonth()].slice(0, 3)}.`
 }
 
 export function Kalender() {
   const daten = kalenderTermine as KalenderDaten
-  const firstEventDate = daten.kalender_events[0]?.datum ?? `${daten.jahr}-01-01`
+  const firstTerminDate = daten.termine[0]?.datum ?? `${daten.jahr}-01-01`
 
-  const [currentMonth, setCurrentMonth] = useState(parseIsoDate(firstEventDate))
+  const [currentMonth, setCurrentMonth] = useState(parseIsoDate(firstTerminDate))
   const [selectedDate, setSelectedDate] = useState<Date | null>(null)
+
+  // Lookup maps
+  const kursTypMap = useMemo(() => {
+    const map = new Map<string, KursTyp>()
+    for (const kt of daten.kurs_typen) map.set(kt.id, kt)
+    return map
+  }, [daten.kurs_typen])
+
+  const lehrplanMap = useMemo(() => {
+    const map = new Map<number, Lektion>()
+    for (const l of daten.lehrplan) map.set(l.nummer, l)
+    return map
+  }, [daten.lehrplan])
+
+  // Block metadata: block_id -> { startDatum, endDatum, gesamtTage }
+  const blockMetaMap = useMemo(() => {
+    const map = new Map<string, { startDatum: string; endDatum: string; gesamtTage: number }>()
+    for (const termin of daten.termine) {
+      const existing = map.get(termin.block_id)
+      if (!existing) {
+        map.set(termin.block_id, { startDatum: termin.datum, endDatum: termin.datum, gesamtTage: 1 })
+      } else {
+        if (termin.datum < existing.startDatum) existing.startDatum = termin.datum
+        if (termin.datum > existing.endDatum) existing.endDatum = termin.datum
+        existing.gesamtTage++
+      }
+    }
+    return map
+  }, [daten.termine])
+
+  // Termine indexed by ISO date for O(1) lookup
+  const terminByDate = useMemo(() => {
+    const map = new Map<string, KalenderTermin>()
+    for (const t of daten.termine) map.set(t.datum, t)
+    return map
+  }, [daten.termine])
+
+  // Upcoming blocks from today
+  const upcomingBlocks = useMemo(() => {
+    const today = toIsoDate(new Date())
+    const seen = new Set<string>()
+    const result: Array<{
+      block_id: string
+      kurs_typ: string
+      startDatum: string
+      endDatum: string
+      gesamtTage: number
+      hex: string
+      label: string
+    }> = []
+
+    for (const termin of daten.termine) {
+      if (termin.datum >= today && !seen.has(termin.block_id)) {
+        seen.add(termin.block_id)
+        const meta = blockMetaMap.get(termin.block_id)
+        const kt = kursTypMap.get(termin.kurs_typ)
+        if (meta && kt) {
+          result.push({
+            block_id: termin.block_id,
+            kurs_typ: termin.kurs_typ,
+            startDatum: meta.startDatum,
+            endDatum: meta.endDatum,
+            gesamtTage: meta.gesamtTage,
+            hex: kt.hex,
+            label: kt.label,
+          })
+        }
+      }
+      if (result.length >= 6) break
+    }
+    return result
+  }, [daten.termine, blockMetaMap, kursTypMap])
 
   const getDaysInMonth = (date: Date) => {
     const year = date.getFullYear()
     const month = date.getMonth()
     const firstDay = new Date(year, month, 1)
     const lastDay = new Date(year, month + 1, 0)
-    const daysInMonth = lastDay.getDate()
-    const startingDayOfWeek = firstDay.getDay()
-
-    return { daysInMonth, startingDayOfWeek }
+    return { daysInMonth: lastDay.getDate(), startingDayOfWeek: firstDay.getDay() }
   }
-
-  const getEintraegeForDate = (date: Date) => {
-    return daten.kalender_events.filter((entry) => isSameDay(parseIsoDate(entry.datum), date))
-  }
-
-  const getLegendLabel = (event: KalenderEvent) => {
-    const inhalt = event.inhalt.toLowerCase()
-
-    if (inhalt.includes("ferienkurs")) {
-      return "Ferienkurs"
-    }
-
-    if (inhalt.includes("a-kurs") || inhalt.includes("zusatzunterricht")) {
-      return "A-Kurs"
-    }
-
-    return event.standort
-  }
-
-  const getDetailBadgeLabel = (event: KalenderEvent) => {
-    const inhalt = event.inhalt.toLowerCase()
-    const topicMatch = event.inhalt.match(/\(([^)]+)\)/)
-
-    if (topicMatch?.[1]) {
-      return topicMatch[1].trim()
-    }
-
-    if (inhalt.includes("ferienkurs")) {
-      return "Ferienkurs"
-    }
-
-    if (inhalt.includes("a-kurs") || inhalt.includes("zusatzunterricht")) {
-      return "A-Kurs"
-    }
-
-    return event.standort
-  }
-
-  const legendEntries = useMemo(() => {
-    const map = new Map<string, { label: string; hex: string }>()
-
-    for (const event of daten.kalender_events) {
-      const label = getLegendLabel(event)
-      const key = `${label}-${event.hex}`
-      if (!map.has(key)) {
-        map.set(key, { label, hex: event.hex })
-      }
-    }
-
-    return Array.from(map.values())
-  }, [daten.kalender_events])
 
   const { daysInMonth, startingDayOfWeek } = getDaysInMonth(currentMonth)
+  const prevMonth = () => setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() - 1))
+  const nextMonth = () => setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1))
 
-  const prevMonth = () => {
-    setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() - 1))
-  }
-
-  const nextMonth = () => {
-    setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1))
-  }
-
-  const selectedEintraege = selectedDate ? getEintraegeForDate(selectedDate) : []
+  const selectedTermin = selectedDate ? (terminByDate.get(toIsoDate(selectedDate)) ?? null) : null
+  const selectedKursTyp = selectedTermin ? kursTypMap.get(selectedTermin.kurs_typ) : null
+  const selectedBlockMeta = selectedTermin ? blockMetaMap.get(selectedTermin.block_id) : null
 
   return (
     <section id="kalender" className="relative bg-background py-16 md:py-20">
@@ -180,7 +196,9 @@ export function Kalender() {
         </div>
 
         <div className="grid gap-6 lg:grid-cols-[2fr_1fr]">
+          {/* ── Kalender ── */}
           <div className="rounded-2xl border border-border/80 bg-card p-4 shadow-md">
+            {/* Monatsnavigation */}
             <div className="mb-4 flex items-center justify-between">
               <h3 className="text-base font-semibold text-card-foreground">
                 {monthNames[currentMonth.getMonth()]} {currentMonth.getFullYear()}
@@ -195,6 +213,7 @@ export function Kalender() {
               </div>
             </div>
 
+            {/* Wochentage */}
             <div className="mb-1 grid grid-cols-7 gap-1">
               {weekdayNames.map((day) => (
                 <div key={day} className="text-center text-xs font-medium text-muted-foreground">
@@ -203,6 +222,7 @@ export function Kalender() {
               ))}
             </div>
 
+            {/* Tage */}
             <div className="grid grid-cols-7 gap-1">
               {Array.from({ length: startingDayOfWeek }).map((_, i) => (
                 <div key={`empty-${i}`} className="aspect-square" />
@@ -211,122 +231,195 @@ export function Kalender() {
               {Array.from({ length: daysInMonth }).map((_, i) => {
                 const day = i + 1
                 const date = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), day)
-                const dayEntries = getEintraegeForDate(date)
-                const hasEvents = dayEntries.length > 0
-                const firstEntry = dayEntries[0]
+                const iso = toIsoDate(date)
+                const termin = terminByDate.get(iso) ?? null
+                const hasEvent = termin !== null
+                const hex = hasEvent ? (kursTypMap.get(termin.kurs_typ)?.hex ?? "#888888") : undefined
 
-                const isSelected =
-                  selectedDate &&
-                  selectedDate.getDate() === day &&
-                  selectedDate.getMonth() === currentMonth.getMonth() &&
-                  selectedDate.getFullYear() === currentMonth.getFullYear()
+                const isSelected = selectedDate !== null && isSameDay(selectedDate, date)
+                const isToday = isSameDay(new Date(), date)
 
-                const isToday =
-                  new Date().getDate() === day &&
-                  new Date().getMonth() === currentMonth.getMonth() &&
-                  new Date().getFullYear() === currentMonth.getFullYear()
-
-                const dayStyle = hasEvents
-                  ? {
-                      backgroundColor: hexToRgba(firstEntry.hex, isSelected ? 0.8 : 0.28),
-                      borderColor: hexToRgba(firstEntry.hex, 0.88),
-                    }
-                  : undefined
+                const dayStyle =
+                  hasEvent && hex
+                    ? {
+                        backgroundColor: hexToRgba(hex, isSelected ? 0.75 : 0.22),
+                        borderColor: hexToRgba(hex, 0.8),
+                      }
+                    : undefined
 
                 return (
                   <button
-                    key={toIsoDate(date)}
-                    onClick={() => setSelectedDate(hasEvents ? date : null)}
-                    disabled={!hasEvents}
+                    key={iso}
+                    onClick={() => setSelectedDate(hasEvent ? date : null)}
+                    disabled={!hasEvent}
                     style={dayStyle}
-                    className={`group relative aspect-square rounded-md border p-1 text-xs transition-all ${
-                      hasEvents
-                        ? "cursor-pointer text-foreground font-semibold hover:brightness-95"
-                        : "cursor-not-allowed border-border/40 text-muted-foreground/40"
-                    } ${isSelected ? "ring-2 ring-primary ring-offset-1" : ""} ${isToday && !isSelected ? "ring-2 ring-primary/50 ring-offset-1" : ""}`}
+                    className={`relative aspect-square rounded-md border p-0.5 text-xs transition-all
+                      ${hasEvent ? "cursor-pointer font-semibold text-foreground hover:brightness-95" : "cursor-not-allowed border-border/40 text-muted-foreground/40"}
+                      ${isSelected ? "ring-2 ring-primary ring-offset-1" : ""}
+                      ${isToday && !isSelected ? "ring-2 ring-primary/50 ring-offset-1" : ""}`}
                   >
-                    <span className="flex h-full w-full items-center justify-center">{day}</span>
+                    <span className="flex h-full w-full flex-col items-center justify-center">
+                      <span>{day}</span>
+                      {hasEvent && termin && termin.block_id.startsWith("B-") && (
+                        <span className="mt-0.5 text-[7px] leading-none opacity-60">
+                          {termin.block_tag}/7
+                        </span>
+                      )}
+                    </span>
                   </button>
                 )
               })}
             </div>
 
-            <div className="mt-4 flex flex-wrap items-center gap-4 border-t border-border pt-4 text-xs text-muted-foreground">
-              {legendEntries.map((entry) => (
-                <div key={`${entry.label}-${entry.hex}`} className="flex items-center gap-1.5">
-                  <span className="h-2 w-2 rounded-full" style={{ backgroundColor: entry.hex }} />
-                  {entry.label}
+            {/* Legende */}
+            <div className="mt-4 flex flex-wrap items-start gap-x-4 gap-y-2 border-t border-border pt-4 text-xs">
+              {daten.kurs_typen.map((kt) => (
+                <div key={kt.id} className="flex items-center gap-1.5">
+                  <span
+                    className="h-2.5 w-2.5 flex-shrink-0 rounded-sm"
+                    style={{ backgroundColor: kt.hex }}
+                  />
+                  <span className="font-medium text-foreground/80">{kt.label}</span>
+                  {kt.lektionen_gesamt > 0 && (
+                    <span className="text-muted-foreground/60">· {kt.lektionen_gesamt} Lekt.</span>
+                  )}
                 </div>
               ))}
-              <div className="flex items-center gap-1.5">
-                <span className="h-2 w-2 rounded-md border-2 border-primary" />
+              <div className="flex items-center gap-1.5 text-muted-foreground">
+                <span className="h-2.5 w-2.5 flex-shrink-0 rounded-sm border-2 border-primary" />
                 Heute
               </div>
             </div>
           </div>
 
+          {/* ── Seitenbereich ── */}
           <div>
-            {selectedDate ? (
+            {selectedDate && selectedTermin && selectedKursTyp ? (
+              /* Detail-Panel */
               <div className="rounded-2xl border border-border/80 bg-card p-4 shadow-md">
-                <h4 className="mb-3 text-sm font-semibold text-card-foreground">
-                  {weekdayNames[selectedDate.getDay()]},{" "}
-                  {selectedDate.getDate()}.{selectedDate.getMonth() + 1}.
-                  {selectedDate.getFullYear()}
-                </h4>
+                {/* Datum + Badge */}
+                <div className="mb-3 flex items-start justify-between gap-2">
+                  <h4 className="text-sm font-semibold text-card-foreground">
+                    {weekdayNames[selectedDate.getDay()]},{" "}
+                    {selectedDate.getDate()}. {monthNames[selectedDate.getMonth()].slice(0, 3)}.{" "}
+                    {selectedDate.getFullYear()}
+                  </h4>
+                  <Badge
+                    className="shrink-0 text-xs"
+                    style={{
+                      backgroundColor: selectedKursTyp.hex,
+                      color: getContrastTextColor(selectedKursTyp.hex),
+                      border: "none",
+                    }}
+                  >
+                    {selectedKursTyp.label}
+                  </Badge>
+                </div>
 
-                <div className="flex flex-col gap-3">
-                  {selectedEintraege.map((entry, idx) => (
-                    <div key={`${idx}-${entry.datum}-${entry.standort}`} className="rounded-lg border border-border/80 bg-muted/35 p-3 shadow-sm">
-                      {(() => {
-                        const detailBadgeLabel = getDetailBadgeLabel(entry)
-                        const showBadge = detailBadgeLabel.toLowerCase() !== entry.inhalt.toLowerCase()
+                {/* Block-Fortschritt */}
+                {selectedBlockMeta && (
+                  <div className="mb-4 rounded-lg bg-muted/40 p-3">
+                    <div className="mb-1.5 flex items-center justify-between text-xs">
+                      <span className="font-semibold text-foreground">{selectedTermin.block_id}</span>
+                      <span className="text-muted-foreground">
+                        Tag {selectedTermin.block_tag} von {selectedBlockMeta.gesamtTage}
+                      </span>
+                    </div>
+                    {/* Fortschrittsbalken */}
+                    <div className="h-1.5 w-full overflow-hidden rounded-full bg-muted">
+                      <div
+                        className="h-full rounded-full transition-all"
+                        style={{
+                          width: `${(selectedTermin.block_tag / selectedBlockMeta.gesamtTage) * 100}%`,
+                          backgroundColor: selectedKursTyp.hex,
+                        }}
+                      />
+                    </div>
+                    <p className="mt-1.5 text-xs text-muted-foreground">
+                      {formatShortDate(parseIsoDate(selectedBlockMeta.startDatum))} –{" "}
+                      {formatShortDate(parseIsoDate(selectedBlockMeta.endDatum))}
+                    </p>
+                  </div>
+                )}
 
-                        return (
-                      <div className="mb-2 flex items-center justify-between gap-2">
-                        {showBadge ? (
-                          <Badge
-                            className="text-xs"
+                {/* Lektionen des Tages */}
+                {selectedTermin.lektionen.length > 0 ? (
+                  <div className="flex flex-col gap-2">
+                    <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                      Heutige Lektionen
+                    </p>
+                    {selectedTermin.lektionen.map((nr) => {
+                      const lektion = lehrplanMap.get(nr)
+                      return (
+                        <div
+                          key={nr}
+                          className="flex items-start gap-2 rounded-md border border-border/60 bg-muted/25 p-2.5"
+                        >
+                          <span
+                            className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-[10px] font-bold"
                             style={{
-                              backgroundColor: entry.hex,
-                              color: getContrastTextColor(entry.hex),
-                              border: "none",
+                              backgroundColor: hexToRgba(selectedKursTyp.hex, 0.2),
+                              color: selectedKursTyp.hex,
                             }}
                           >
-                            {detailBadgeLabel}
-                          </Badge>
-                        ) : null}
-                      </div>
-                        )
-                      })()}
-
-                      <h5 className="mb-2 text-sm font-semibold text-card-foreground">
-                        {entry.inhalt}
-                      </h5>
-
-                      <div className="flex flex-col gap-1 text-xs text-muted-foreground">
-                        <div className="flex items-center gap-1.5">
-                          <MapPin className="h-3 w-3" />
-                          {entry.standort}
+                            {nr}
+                          </span>
+                          <p className="text-xs font-medium leading-snug text-card-foreground">
+                            {lektion?.thema ?? `Lektion ${nr}`}
+                          </p>
                         </div>
-                        <div className="flex items-center gap-1.5">
-                          <Clock className="h-3 w-3" />
-                          Tagesinhalt laut Lehrplan
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-
-                  {selectedEintraege.length === 0 && (
-                    <p className="text-xs text-muted-foreground">
-                      Für dieses Datum sind keine Termine hinterlegt.
-                    </p>
-                  )}
-                </div>
+                      )
+                    })}
+                  </div>
+                ) : (
+                  <div className="rounded-md bg-muted/30 p-3">
+                    <p className="text-xs font-semibold text-foreground/80">{selectedKursTyp.label}</p>
+                    <p className="mt-0.5 text-xs text-muted-foreground">{selectedKursTyp.beschreibung}</p>
+                  </div>
+                )}
               </div>
             ) : (
-              <div className="flex h-full items-center justify-center rounded-2xl border border-dashed border-border/80 bg-muted/50 p-8 text-center">
-                <p className="text-xs text-muted-foreground">
-                  Wähle ein Datum mit Unterricht aus
+              /* Nächste Kurse */
+              <div className="rounded-2xl border border-border/80 bg-card p-4 shadow-md">
+                <h4 className="mb-3 flex items-center gap-2 text-sm font-semibold text-card-foreground">
+                  <CalendarDays className="h-4 w-4 text-primary" />
+                  Nächste Kurse
+                </h4>
+
+                {upcomingBlocks.length > 0 ? (
+                  <div className="flex flex-col gap-2">
+                    {upcomingBlocks.map((block) => (
+                      <div
+                        key={block.block_id}
+                        className="flex items-start gap-2.5 rounded-lg border border-border/60 px-2.5 py-2"
+                      >
+                        <div
+                          className="mt-0.5 h-2.5 w-2.5 shrink-0 rounded-sm"
+                          style={{ backgroundColor: block.hex }}
+                        />
+                        <div className="min-w-0">
+                          <p className="text-xs font-semibold leading-snug text-foreground">
+                            {block.label}
+                          </p>
+                          <p className="text-xs text-muted-foreground">
+                            {formatShortDate(parseIsoDate(block.startDatum))} –{" "}
+                            {formatShortDate(parseIsoDate(block.endDatum))}
+                          </p>
+                          <p className="text-xs text-muted-foreground/70">
+                            {block.gesamtTage} Termin{block.gesamtTage !== 1 ? "e" : ""}
+                          </p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <p className="text-xs text-muted-foreground">
+                    Keine weiteren Termine in diesem Jahr.
+                  </p>
+                )}
+
+                <p className="mt-3 text-xs text-muted-foreground/50">
+                  Klicke auf einen farbigen Tag für Details.
                 </p>
               </div>
             )}
