@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import Image from "next/image"
 import { Car, Bike, Info, ArrowUpRight } from "lucide-react"
 import { cn } from "@/lib/utils"
 import {
@@ -346,12 +347,16 @@ const categoryInfo = {
     headline: "PKW-Führerscheine",
     description:
       "Der Klasse-B-Führerschein ist der beliebteste Führerschein in Deutschland – und der erste Schritt in die Mobilität. Bei uns lernst du mit modernen Fahrzeugen, flexiblen Zeiten und einer persönlichen Betreuung. Egal ob du mit 17 über BF17 startest, nur Automatik brauchst oder später noch einen Anhänger draufpacken willst – wir haben die passende Klasse für dich.",
+    image: "/2026HyundaiTucson.jpg",
+    imageAlt: "VS Fahrschule Hyundai Tucson",
   },
   motorrad: {
     icon: <Bike className="h-5 w-5 text-primary" />,
     headline: "Motorrad-Führerscheine",
     description:
       "Vom Leichtkraftrad mit 16 bis zur unbeschränkten Maschine ohne Limit – der Weg zum Motorradführerschein hat viele Stufen. Wir begleiten dich durch alle Klassen: ob du gezielt mit A1 einsteigst, über A2 progressiv aufsteigst oder als erfahrener Autofahrer schnell und unkompliziert mit B196 auf ein 125er umsteigst.",
+    image: "/IMG_0226.PNG",
+    imageAlt: "VS Fahrschule Motorrad",
   },
 }
 
@@ -407,13 +412,51 @@ export function Klassen() {
         </div>
 
         {/* Category Intro */}
-        <div className="mb-8 flex items-start gap-4 rounded-2xl border border-border bg-card px-5 py-5">
-          <div className="mt-0.5 shrink-0 rounded-xl bg-primary/10 p-2.5">
-            {cat.icon}
+        <div className="mb-8 overflow-hidden rounded-2xl border border-border bg-card">
+          {/* Mobile: image top, text below */}
+          <div className="sm:hidden">
+            <div className="relative h-64 w-full bg-zinc-100 dark:bg-zinc-800/60">
+              <Image
+                key={cat.image}
+                src={cat.image}
+                alt={cat.imageAlt}
+                fill
+                className="object-cover transition-opacity duration-300"
+                sizes="100vw"
+              />
+            </div>
+            <div className="px-5 py-4">
+              <div className="mb-2 flex items-center gap-3">
+                <div className="shrink-0 rounded-xl bg-primary/10 p-2">
+                  {cat.icon}
+                </div>
+                <h3 className="text-base font-bold text-foreground">{cat.headline}</h3>
+              </div>
+              <p className="text-sm leading-relaxed text-muted-foreground">{cat.description}</p>
+            </div>
           </div>
-          <div>
-            <h3 className="mb-1 text-base font-bold text-foreground">{cat.headline}</h3>
-            <p className="text-sm leading-relaxed text-muted-foreground">{cat.description}</p>
+
+          {/* Desktop: text left, image right */}
+          <div className="hidden min-h-[160px] items-stretch sm:flex">
+            <div className="flex flex-1 flex-col justify-center gap-2.5 px-5 py-5">
+              <div className="flex items-center gap-3">
+                <div className="shrink-0 rounded-xl bg-primary/10 p-2">
+                  {cat.icon}
+                </div>
+                <h3 className="text-base font-bold text-foreground">{cat.headline}</h3>
+              </div>
+              <p className="text-sm leading-relaxed text-muted-foreground">{cat.description}</p>
+            </div>
+            <div className="relative w-52 shrink-0 bg-zinc-100 dark:bg-zinc-800/60 md:w-64">
+              <Image
+                key={`${cat.image}-desktop`}
+                src={cat.image}
+                alt={cat.imageAlt}
+                fill
+                className="object-contain p-3 transition-opacity duration-300"
+                sizes="(max-width: 768px) 208px, 256px"
+              />
+            </div>
           </div>
         </div>
 
