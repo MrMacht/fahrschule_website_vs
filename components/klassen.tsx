@@ -379,7 +379,7 @@ export function Klassen() {
             Finde die passende Führerscheinklasse
           </h2>
           <p className="mt-4 text-lg leading-relaxed text-muted-foreground">
-            Wähle eine Kategorie und klick auf eine Klasse für alle Details.
+            Vom PKW über das Motorrad – bei uns findest du das passende Angebot für deinen Führerschein.
           </p>
         </div>
 
@@ -412,9 +412,9 @@ export function Klassen() {
         </div>
 
         {/* Category Intro */}
-        <div className="mb-8 overflow-hidden rounded-2xl border border-border bg-card">
+        <div className="mb-12">
           {/* Mobile: image top, text below */}
-          <div className="sm:hidden">
+          <div className="overflow-hidden rounded-2xl border border-border bg-card sm:hidden">
             <div className="relative h-64 w-full bg-zinc-100 dark:bg-zinc-800/60">
               <Image
                 key={cat.image}
@@ -427,37 +427,41 @@ export function Klassen() {
             </div>
             <div className="px-5 py-4">
               <div className="mb-2 flex items-center gap-3">
-                <div className="shrink-0 rounded-xl bg-primary/10 p-2">
-                  {cat.icon}
-                </div>
+                <div className="shrink-0 rounded-xl bg-primary/10 p-2">{cat.icon}</div>
                 <h3 className="text-base font-bold text-foreground">{cat.headline}</h3>
               </div>
               <p className="text-sm leading-relaxed text-muted-foreground">{cat.description}</p>
             </div>
           </div>
 
-          {/* Desktop: text left, image right */}
-          <div className="hidden min-h-[160px] items-stretch sm:flex">
-            <div className="flex flex-1 flex-col justify-center gap-2.5 px-5 py-5">
-              <div className="flex items-center gap-3">
-                <div className="shrink-0 rounded-xl bg-primary/10 p-2">
-                  {cat.icon}
-                </div>
-                <h3 className="text-base font-bold text-foreground">{cat.headline}</h3>
+          {/* Desktop: zigzag – PKW image left, Motorrad image right */}
+          <div className="hidden sm:grid sm:grid-cols-2 sm:items-center sm:gap-12 lg:gap-20">
+            <div className={tab === "motorrad" ? "order-2" : "order-1"}>
+              <div className="relative aspect-[4/3] w-full">
+                <Image
+                  key={cat.image}
+                  src={cat.image}
+                  alt={cat.imageAlt}
+                  fill
+                  className="object-contain transition-opacity duration-300"
+                  sizes="(max-width: 1024px) 50vw, 600px"
+                />
               </div>
-              <p className="text-sm leading-relaxed text-muted-foreground">{cat.description}</p>
             </div>
-            <div className="relative w-52 shrink-0 bg-zinc-100 dark:bg-zinc-800/60 md:w-64">
-              <Image
-                key={`${cat.image}-desktop`}
-                src={cat.image}
-                alt={cat.imageAlt}
-                fill
-                className="object-contain p-3 transition-opacity duration-300"
-                sizes="(max-width: 768px) 208px, 256px"
-              />
+            <div className={cn("flex flex-col gap-4", tab === "motorrad" ? "order-1" : "order-2")}>
+              <div className="inline-flex w-fit items-center gap-2 rounded-xl bg-primary/10 px-3 py-1.5">
+                {cat.icon}
+                <span className="text-sm font-bold text-primary">{cat.headline}</span>
+              </div>
+              <p className="text-base leading-relaxed text-muted-foreground">{cat.description}</p>
             </div>
           </div>
+        </div>
+
+        {/* Cards heading */}
+        <div className="mb-5">
+          <p className="text-sm font-semibold uppercase tracking-widest text-primary">Alle Klassen</p>
+          <p className="mt-1 text-muted-foreground text-sm">Klick auf eine Klasse für alle Details.</p>
         </div>
 
         {/* Class Cards */}
