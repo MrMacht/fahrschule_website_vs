@@ -38,18 +38,18 @@ const pkwClasses: ClassInfo[] = [
     name: "Klasse B",
     tagline: "Der Standard-PKW-Führerschein",
     quickFacts: [
-      { label: "Mindestalter", value: "17 (BF17) / 18 J." },
+      { label: "Mindestalter", value: "16.5 J. (BF17) / 18 J." },
       { label: "Fahrzeug", value: "bis 3.500 kg" },
       { label: "Getriebe", value: "Schalt & Automatik" },
     ],
     description:
-      "Der meistgemachte Führerschein in Deutschland. Klasse B berechtigt zum Fahren von PKW und leichten Transportern bis 3.500 kg – egal ob Schalt- oder Automatikgetriebe. Pflicht für alle, die eigenständig mobil sein wollen.",
+      "Der meistgemachte Führerschein in Deutschland. Klasse B berechtigt zum Fahren von PKW und leichten Transportern bis 3.500 kg. Pflicht für alle, die eigenständig mobil sein wollen.",
     details: [
       "Gilt für alle PKW und leichten Transporter bis 3.500 kg",
       "Schalt- und Automatikfahrzeuge eingeschlossen",
       "Bis zu 8 Sitzplätze (ohne Fahrersitz)",
       "Kleinanhänger bis 750 kg ohne Zusatzprüfung erlaubt",
-      "Begleitetes Fahren ab 17 Jahren (BF17) möglich",
+      "Begleitetes Fahren ab 16.5 Jahren (BF17) möglich",
       "Theorieprüfung und praktische Fahrprüfung erforderlich",
       "EU-weit gültig, alle 15 Jahre zu erneuern (inhaltlich unbefristet)",
     ],
@@ -60,17 +60,19 @@ const pkwClasses: ClassInfo[] = [
     name: "PKW-Führerschein",
     tagline: "Schalt- & Automatikgetriebe",
     quickFacts: [
-      { label: "Mindestalter", value: "17 (BF17) / 18 J." },
+      { label: "Mindestalter", value: "16.5 J. (BF17) / 18 J." },
       { label: "Fahrzeug", value: "bis 3.500 kg" },
       { label: "Anhänger", value: "bis 750 kg inkl." },
     ],
     description:
-      "Der Standard-PKW-Führerschein – gilt für Fahrzeuge mit Schalt- und Automatikgetriebe. Mit BF17 kannst du bereits ab 17 Jahren begleitet starten und bist mit 18 voll eigenständig unterwegs.",
+      "Der Standard-PKW-Führerschein – gilt für Fahrzeuge mit Schalt- und Automatikgetriebe. Mit BF17 kannst du bereits ab 16.5 Jahren begleitet starten und bist mit 18 voll eigenständig unterwegs.",
     details: [
       "Fahrzeuge bis 3.500 kg zulässiger Gesamtmasse",
       "Bis zu 8 Sitzplätze (ohne Fahrer)",
       "Kleinanhänger bis 750 kg ohne Zusatzprüfung",
       "Begleitetes Fahren ab 17 Jahren (BF17) möglich",
+      "Mindestens 10 Fahrstunden müssen auf einem Schaltfahrzeug absolviert werden",
+      "Restliche Fahrstunden und die Fahrprüfung können in einem Automatikfahrzeug stattfinden",
       "Theorieprüfung + praktische Fahrprüfung erforderlich",
       "EU-Führerschein alle 15 Jahre zu erneuern (inhaltlich unbegrenzt)",
     ],
@@ -81,12 +83,12 @@ const pkwClasses: ClassInfo[] = [
     name: "Automatik-Führerschein",
     tagline: "Nur Automatikgetriebe",
     quickFacts: [
-      { label: "Mindestalter", value: "17 (BF17) / 18 J." },
+      { label: "Mindestalter", value: "16.5 J. (BF17) / 18 J." },
       { label: "Gültig für", value: "nur Automatik" },
       { label: "Upgrade", value: "jederzeit möglich" },
     ],
     description:
-      "Wer ausschließlich Automatikfahrzeuge fahren möchte, spart sich das Schalten und kommt oft schneller zum Führerschein. Ideal für den Einstieg oder wer nie ein Schaltfahrzeug plane.",
+      "Wer ausschließlich Automatikfahrzeuge fahren möchte, spart sich das Schalten und kommt oft schneller zum Führerschein. Ideal für den Einstieg oder wer nie ein Schaltfahrzeug fahren möchte.",
     details: [
       "Führerschein trägt Schlüsselzahl '78' (nur Automatikgetriebe)",
       "Weniger Koordinationsaufwand – kein manuelles Schalten",
@@ -104,7 +106,7 @@ const pkwClasses: ClassInfo[] = [
     name: "Anhänger­erweiterung",
     tagline: "Gespanne bis 4.250 kg",
     quickFacts: [
-      { label: "Mindestalter", value: "18 J." },
+      { label: "Mindestalter", value: "16.5 J. (BF17) / 18 J." },
       { label: "Gespann", value: "bis 4.250 kg" },
       { label: "Prüfung", value: "keine – nur Kurs" },
     ],
@@ -113,7 +115,7 @@ const pkwClasses: ClassInfo[] = [
     details: [
       "Zulässige Gesamtmasse des Gespanns bis 4.250 kg",
       "Voraussetzung: vorhandener Klasse-B-Führerschein",
-      "Ausbildung: mindestens 7 Fahrstunden",
+      "Ausbildung: 7 Zeitstunden (2,5 Std. Theorie + praktische Fahrübungen)",
       "Keine Theorieprüfung, keine praktische Prüfung",
       "Nachweis als Schulungsbescheinigung (kein separater Führerschein)",
       "Ideal für größere Pferdeanhänger, Boote bis ca. 2 t, Motorradanhänger",
@@ -125,7 +127,7 @@ const pkwClasses: ClassInfo[] = [
     name: "Führerschein mit Anhänger",
     tagline: "Gespanne bis 7.000 kg",
     quickFacts: [
-      { label: "Mindestalter", value: "18 J." },
+      { label: "Mindestalter", value: "16.5 J. (BF17) / 18 J." },
       { label: "Anhänger", value: "bis 3.500 kg" },
       { label: "Gespann", value: "bis 7.000 kg" },
     ],
@@ -149,49 +151,48 @@ const motorradClasses: ClassInfo[] = [
     name: "Leichtkraftrad",
     tagline: "bis 125 ccm & 11 kW",
     quickFacts: [
-      { label: "Mindestalter", value: "16 J." },
+      { label: "Mindestalter", value: "15,5 J." },
       { label: "Motor", value: "max. 125 ccm / 11 kW" },
-      { label: "Upgrade", value: "auf A2 ab 18 J." },
+      { label: "Upgrade", value: "auf A2 ab 17,5 J." },
     ],
     description:
-      "Der perfekte Einstieg in die Motorradwelt – schon ab 16 Jahren. A1 berechtigt zum Fahren von Leichtkrafträdern bis 125 ccm und 11 kW (ca. 15 PS).",
+      "Der perfekte Einstieg in die Motorradwelt – schon ab 15,5 Jahren. A1 berechtigt zum Fahren von Leichtkrafträdern bis 125 ccm und 11 kW (ca. 15 PS).",
     details: [
       "Motorräder bis 125 ccm Hubraum und 11 kW (ca. 15 PS)",
-      "Einstiegsalter: 16 Jahre",
+      "Einstiegsalter: 15,5 Jahre",
       "Dreiphasige Ausbildung: Grundfahren, Sicherheitstraining, Straßenfahrt",
       "Theorie- und Fahrprüfung erforderlich",
       "Gilt auch für 3-rädrige Leichtkraftfahrzeuge bis 15 kW",
-      "Upgrade auf A2 ab 18 Jahren mit reduzierter Prüfung möglich",
+      "Upgrade auf A2 ab 17,5 Jahren mit reduzierter Prüfung möglich",
     ],
   },
   {
     id: "a2",
     code: "A2",
     name: "Mittelschweres Motorrad",
-    tagline: "bis 35 kW (ca. 47 PS)",
+    tagline: "bis 35 kW (ca. 48 PS)",
     quickFacts: [
-      { label: "Mindestalter", value: "18 J." },
+      { label: "Mindestalter", value: "17,5 J." },
       { label: "Leistung", value: "max. 35 kW" },
       { label: "Upgrade", value: "auf A nach 2 Jahren" },
     ],
     description:
-      "Mittelschwere Maschinen bis 35 kW – der beliebteste Einstieg für Volljährige. Nach zwei Jahren A2-Erfahrung steht das unbeschränkte offene A offen.",
+      "Mittelschwere Maschinen bis 35 kW – möglich schon ab 17,5 Jahren. Nach zwei Jahren A2-Erfahrung kann der offene A-Führerschein absolviert werden – eine Fahrprüfung genügt.",
     details: [
-      "Motorräder bis 35 kW (ca. 47 PS) und max. 0,2 kW/kg Leistungsgewicht",
-      "Direkteinstieg ab 18 Jahren möglich",
+      "Motorräder bis 35 kW (ca. 48 PS) und max. 0,2 kW/kg Leistungsgewicht",
+      "Direkteinstieg ab 17,5 Jahren möglich",
       "Bei Upgrade von A1: neues Motorrad darf max. doppelte Leistung haben",
-      "Nach mindestens 2 Jahren A2: Aufstieg auf offenes A möglich (nur Fahrprüfung)",
+      "Nach mindestens 2 Jahren mit A2-Führerschein kann der offene A-Führerschein absolviert werden – eine Fahrprüfung genügt",
       "Theorie- und praktische Prüfung erforderlich",
-      "Sehr breite Modellauswahl in dieser Klasse verfügbar",
     ],
   },
   {
     id: "a",
     code: "A",
     name: "Unbeschränktes Motorrad",
-    tagline: "A80 · Alle Maschinen ohne Limit",
+    tagline: "Alle Maschinen ohne Limit",
     quickFacts: [
-      { label: "Mindestalter", value: "20 J. (nach A2) / 24 J." },
+      { label: "Mindestalter", value: "24 J." },
       { label: "Leistung", value: "unbegrenzt" },
       { label: "Weg", value: "progressiv oder direkt" },
     ],
@@ -204,8 +205,6 @@ const motorradClasses: ClassInfo[] = [
       "Gilt auch für Trikes über 15 kW",
       "Inkl. aller Superbikes, Tourenmotorräder, Big-Trails ohne Einschränkung",
     ],
-    note:
-      "Hinweis: 'A80' ist kein offizieller Begriff – er bezeichnet traditionell das unbeschränkte offene A (früher auf 80 kW limitiert). Die aktuelle Klasse heißt einfach 'A'.",
   },
   {
     id: "b196",
