@@ -2,9 +2,9 @@
 
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-import { Lock, ArrowRight, Loader2, Flag } from 'lucide-react'
+import { Lock, ArrowRight, Loader2, Flag, Phone, Mail, MapPin } from 'lucide-react'
 
-const OPENING = new Date('2026-04-18T14:00:00')
+const OPENING = new Date('2026-04-25T14:00:00+02:00')
 
 function useCountdown(target: Date) {
   const calc = () => {
@@ -64,26 +64,26 @@ export default function ComingSoon() {
         className="pointer-events-none absolute -bottom-32 -right-32 h-[400px] w-[400px] rounded-full bg-[#4cc8e0]/15 blur-[100px]"
       />
 
-      <div className="relative z-10 w-full max-w-md space-y-10 text-center">
+      <div className="relative z-10 w-full max-w-md space-y-5 text-center">
         {/* Logo / Markenname */}
-        <div className="space-y-3">
-          <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-[#e91e8c]/10 ring-1 ring-[#e91e8c]/30">
-            <Lock className="h-7 w-7 text-[#e91e8c]" />
+        <div className="space-y-1.5">
+          <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-xl bg-[#e91e8c]/10 ring-1 ring-[#e91e8c]/30">
+            <Lock className="h-5 w-5 text-[#e91e8c]" />
           </div>
-          <h1 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
+          <h1 className="text-2xl font-bold tracking-tight text-white">
             VS Fahrschule
           </h1>
-          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#e91e8c]">
+          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#e91e8c]">
             Coming Soon
           </p>
         </div>
 
         {/* Eröffnungs-Countdown */}
-        <div className="space-y-3">
+        <div className="space-y-2">
           <div className="flex items-center justify-center gap-1.5 text-white/50">
-            <Flag className="h-3.5 w-3.5 text-[#e91e8c]" />
+            <Flag className="h-3 w-3 text-[#e91e8c]" />
             <span className="text-xs font-semibold uppercase tracking-widest">
-              Eröffnung&nbsp;·&nbsp;18. April · 14–18 Uhr
+              Eröffnung&nbsp;·&nbsp;25. April · 14–18 Uhr
             </span>
           </div>
           <div className="grid grid-cols-4 gap-2">
@@ -95,9 +95,9 @@ export default function ComingSoon() {
             ].map(({ value, label }) => (
               <div
                 key={label}
-                className="flex flex-col items-center justify-center rounded-xl bg-white/5 py-3 ring-1 ring-white/10"
+                className="flex flex-col items-center justify-center rounded-xl bg-white/5 py-2.5 ring-1 ring-white/10"
               >
-                <span className="text-2xl font-bold tabular-nums text-white sm:text-3xl">
+                <span className="text-xl font-bold tabular-nums text-white sm:text-2xl">
                   {String(value).padStart(2, '0')}
                 </span>
                 <span className="mt-0.5 text-[10px] font-semibold uppercase tracking-widest text-white/40">
@@ -106,22 +106,52 @@ export default function ComingSoon() {
               </div>
             ))}
           </div>
-          <p className="text-sm font-semibold text-white/70">
-            Ab dem 18.04. wird durchgestartet.
-          </p>
-          <p className="text-base font-bold text-[#e91e8c]">
-            Mit VS‑Fahrschule.
+          <p className="text-xs font-semibold text-white/50">
+            Ab dem 25.04. wird durchgestartet – mit VS‑Fahrschule.
           </p>
         </div>
 
         {/* Info-Text */}
-        <p className="text-base leading-relaxed text-white/60">
+        <p className="text-sm leading-relaxed text-white/50">
           Unsere Website ist noch nicht ganz fertig. Gib das Passwort ein, um
           schon jetzt einen Blick hinter die Kulissen zu werfen.
         </p>
 
+        {/* Kontakt-Karten */}
+        <div className="flex flex-col gap-2">
+          <a
+            href="tel:+4915225922006"
+            className="flex items-center gap-3 rounded-xl bg-white/5 px-4 py-2.5 ring-1 ring-white/10 transition-all hover:bg-white/10 hover:ring-[#e91e8c]/40"
+          >
+            <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-[#e91e8c]/15">
+              <Phone className="h-4 w-4 text-[#e91e8c]" />
+            </div>
+            <span className="text-sm font-medium text-white/80">+49 152 2592 2006</span>
+          </a>
+          <a
+            href="mailto:info@vsfahrschule.com"
+            className="flex items-center gap-3 rounded-xl bg-white/5 px-4 py-2.5 ring-1 ring-white/10 transition-all hover:bg-white/10 hover:ring-[#e91e8c]/40"
+          >
+            <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-[#e91e8c]/15">
+              <Mail className="h-4 w-4 text-[#e91e8c]" />
+            </div>
+            <span className="text-sm font-medium text-white/80">info@vsfahrschule.com</span>
+          </a>
+          <a
+            href="https://maps.google.com/?q=Hauptstraße+100,+63579+Freigericht"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-3 rounded-xl bg-white/5 px-4 py-2.5 ring-1 ring-white/10 transition-all hover:bg-white/10 hover:ring-[#e91e8c]/40"
+          >
+            <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-[#e91e8c]/15">
+              <MapPin className="h-4 w-4 text-[#e91e8c]" />
+            </div>
+            <span className="text-sm font-medium text-white/80">Hauptstraße 100, 63579 Freigericht</span>
+          </a>
+        </div>
+
         {/* Passwort-Formular */}
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-3">
           <div className="relative">
             <input
               type="password"
@@ -132,7 +162,7 @@ export default function ComingSoon() {
               }}
               placeholder="Passwort"
               autoComplete="current-password"
-              className={`w-full rounded-xl border bg-white/5 px-5 py-3.5 text-base text-white placeholder-white/30 outline-none ring-0 transition-all focus:ring-2 ${
+              className={`w-full rounded-xl border bg-white/5 px-4 py-3 text-sm text-white placeholder-white/30 outline-none ring-0 transition-all focus:ring-2 ${
                 error
                   ? 'border-red-500/60 focus:ring-red-500/40'
                   : 'border-white/10 focus:border-[#e91e8c]/60 focus:ring-[#e91e8c]/30'
@@ -149,10 +179,10 @@ export default function ComingSoon() {
           <button
             type="submit"
             disabled={loading || !password}
-            className="flex w-full items-center justify-center gap-2 rounded-xl bg-[#e91e8c] px-6 py-3.5 text-base font-semibold text-white transition-all hover:bg-[#e91e8c]/90 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50"
+            className="flex w-full items-center justify-center gap-2 rounded-xl bg-[#e91e8c] px-6 py-3 text-sm font-semibold text-white transition-all hover:bg-[#e91e8c]/90 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50"
           >
             {loading ? (
-              <Loader2 className="h-5 w-5 animate-spin" />
+              <Loader2 className="h-4 w-4 animate-spin" />
             ) : (
               <>
                 Weiter zur Website

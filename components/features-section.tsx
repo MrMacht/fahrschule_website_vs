@@ -1,4 +1,4 @@
-import { BadgeCheck, BookOpenCheck, Eye, HeartPulse } from "lucide-react"
+import { BadgeCheck, BookOpenCheck, Camera, Eye, HeartPulse } from "lucide-react"
 
 const features = [
   {
@@ -18,6 +18,12 @@ const features = [
     title: "Sehtest vor Ort",
     description:
       "Auch den Sehtest bieten wir direkt vor Ort an. Damit hast du alle wichtigen Nachweise schnell an einem Ort erledigt.",
+  },
+  {
+    icon: <Camera className="h-5 w-5 text-primary" />,
+    title: "Passbild direkt bei uns",
+    description:
+      "Auch dein Passbild für den Führerscheinantrag kannst du direkt bei uns machen lassen – kein extra Termin beim Fotografen nötig.",
   },
 ]
 
@@ -61,7 +67,7 @@ export function FeaturesSection() {
         <div className="mt-6 rounded-2xl border border-primary/55 bg-primary/20 p-4 shadow-md md:p-5">
           <p className="flex items-start gap-2 text-sm text-zinc-100 md:text-base">
             <BadgeCheck className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
-            Kurze Wege, klare Abläufe: Theorie, Erste Hilfe und Sehtest aus einer
+            Kurze Wege, klare Abläufe: Theorie, Erste Hilfe, Sehtest und Passbild aus einer
             Hand - für einen schnellen Start in deine Fahrstunden.
           </p>
         </div>

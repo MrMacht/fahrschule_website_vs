@@ -187,6 +187,27 @@ const motorradClasses: ClassInfo[] = [
     ],
   },
   {
+    id: "a80",
+    code: "A80",
+    name: "A-Führerschein ab 21",
+    tagline: "Prüfung offen – bis 24 auf 35 kW beschränkt",
+    quickFacts: [
+      { label: "Mindestalter", value: "21 J." },
+      { label: "Nach Prüfung", value: "max. 35 kW / 48 PS" },
+      { label: "Offen ab", value: "24. Geburtstag" },
+    ],
+    description:
+      "Der A80-Weg: Die Prüfung wird ab 21 Jahren auf einer offenen Maschine abgelegt – danach gilt zunächst eine Beschränkung auf 35 kW (ca. 48 PS). Ab dem 24. Geburtstag entfällt die Beschränkung automatisch, ganz ohne Aufstiegsprüfung.",
+    details: [
+      "Mindestalter: 21 Jahre",
+      "Fahrprüfung wird auf einer unbeschränkten offenen Maschine abgelegt",
+      "Nach bestandener Prüfung: Beschränkung auf 35 kW (ca. 48 PS)",
+      "Ab dem 24. Geburtstag entfällt die Beschränkung automatisch – keine Aufstiegsprüfung nötig",
+      "Theorie- und praktische Prüfung erforderlich",
+      "Attraktiv für alle, die früher als mit 24 den A-Führerschein machen möchten",
+    ],
+  },
+  {
     id: "a",
     code: "A",
     name: "Unbeschränktes Motorrad",
@@ -222,7 +243,7 @@ const motorradClasses: ClassInfo[] = [
       "Voraussetzung: B-Führerschein seit mind. 5 Jahren + Mindestalter 25 Jahre",
       "Berechtigt zum Fahren von Motorrädern bis 125 ccm und 11 kW",
       "Ausbildung: mind. 13,5 Stunden (Theorie + Praxis)",
-      "Keine Führerscheinprüfung – nur Kurszertifikat nötig",
+      "Keine Führerscheinprüfung – nur Kursbescheinigung nötig",
       "Schlüsselzahl '196' wird in den bestehenden B-Führerschein eingetragen",
       "Achtung: gilt nur in Deutschland – für Auslandsfahrten auf dem Motorrad wird ein vollwertiger A-Führerschein benötigt",
     ],
