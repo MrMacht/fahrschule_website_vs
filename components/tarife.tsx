@@ -15,20 +15,27 @@ import {
   Minus,
   Sparkles,
   Star,
+  Car,
+  Bike,
 } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
-type PackageKey = "basic" | "fastlane" | "fastlanePlus"
+type VehicleType = "pkw" | "motorrad"
+
+type PkwPackageKey = "basic" | "premium" | "premiumFastlane"
+type MotorradPackageKey = "basic" | "premiumFastlane"
+type PackageKey = PkwPackageKey | MotorradPackageKey
+
 type PackageValue = boolean | string
 
 interface FeatureRow {
   label: string
   detail?: string
   basic: PackageValue
-  fastlane: PackageValue
-  fastlanePlus: PackageValue
+  premium?: PackageValue
+  premiumFastlane: PackageValue
 }
 
 interface FeatureGroup {
@@ -38,27 +45,27 @@ interface FeatureGroup {
   features: FeatureRow[]
 }
 
-// ─── Data ─────────────────────────────────────────────────────────────────────
+// ─── PKW Data ─────────────────────────────────────────────────────────────────
 
-const packages: { key: PackageKey; label: string; sublabel: string }[] = [
+const pkwPackages: { key: PkwPackageKey; label: string; sublabel: string }[] = [
   {
     key: "basic",
     label: "Basic",
     sublabel: "Alles was du brauchst",
   },
   {
-    key: "fastlane",
-    label: "Fastlane",
-    sublabel: "Unser Bestseller",
+    key: "premium",
+    label: "Premium",
+    sublabel: "Mehr Service & Komfort",
   },
   {
-    key: "fastlanePlus",
-    label: "Fastlane Plus",
+    key: "premiumFastlane",
+    label: "Premium Fastlane",
     sublabel: "Maximale Unterstützung",
   },
 ]
 
-const featureGroups: FeatureGroup[] = [
+const pkwFeatureGroups: FeatureGroup[] = [
   {
     id: "grundleistungen",
     title: "Grundleistungen",
@@ -67,81 +74,80 @@ const featureGroups: FeatureGroup[] = [
       {
         label: "Antrags- & Behördenservice",
         detail: "Wir übernehmen die Organisation für deinen Führerscheinantrag.",
-        basic: true,
-        fastlane: true,
-        fastlanePlus: true,
+        basic: false,
+        premium: true,
+        premiumFastlane: true,
       },
       {
         label: "Theorieunterricht im Block",
         basic: true,
-        fastlane: true,
-        fastlanePlus: true,
+        premium: true,
+        premiumFastlane: true,
       },
       {
         label: "Wiederholer Grundbetrag kostenfrei",
         detail:
           "Bei Nichtbestehen der Theorieprüfung: weitere Teilnahme am Theorieunterricht kostenfrei.",
         basic: false,
-        fastlane: true,
-        fastlanePlus: true,
+        premium: true,
+        premiumFastlane: true,
       },
       {
         label: "Preisgarantie",
         detail: "Die Preisgarantie gilt für 12 Monate nach Vertragsunterzeichnung.",
         basic: false,
-        fastlane: true,
-        fastlanePlus: true,
+        premium: true,
+        premiumFastlane: true,
       },
       {
-        label: "Jokerkarten (2× kurzfristige Absage)",
+        label: "Jokerkarten (kurzfristige Absage)",
         detail:
-          "Du erhältst zwei Jokerkarten, mit denen du entgegen der AGB eine Fahrstunde à 45 Minuten auch bei kurzer Benachrichtigungsfrist kostenfrei absagen kannst.",
+          "Jokerkarten, mit denen du entgegen der AGB eine Fahrstunde à 45 Minuten auch bei kurzer Benachrichtigungsfrist kostenfrei absagen kannst.",
         basic: false,
-        fastlane: true,
-        fastlanePlus: true,
+        premium: "1 Joker",
+        premiumFastlane: "2 Joker",
       },
       {
         label: "Expressantrag für deinen Führerschein",
         detail:
           "Wir sorgen, sofern möglich, für schnellstmögliche Bearbeitung deines Führerscheinantrages.",
         basic: false,
-        fastlane: false,
-        fastlanePlus: true,
+        premium: false,
+        premiumFastlane: true,
       },
       {
         label: "Ausbildung in 14 Tagen möglich",
         basic: false,
-        fastlane: false,
-        fastlanePlus: true,
+        premium: false,
+        premiumFastlane: true,
       },
     ],
   },
   {
     id: "extras",
     title: "Extras & Lernmaterial",
-    previewCount: 3,
+    previewCount: 2,
     features: [
       {
-        label: "fahrschulpaket*",
-        detail: "Enthält: Erste-Hilfe-Kurs, Passbild & Sehtest.",
+        label: "Erste-Hilfe-Kurs",
+        detail: "Pflichtnachweis vor der Theorieprüfung – 9 Stunden, 1 Kurstag.",
         basic: "optional",
-        fastlane: "optional",
-        fastlanePlus: "optional",
+        premium: true,
+        premiumFastlane: true,
       },
       {
         label: "Lernpaket",
         detail: "Spannende App für dein Smartphone, premium Workbook und E-Book.",
         basic: "optional",
-        fastlane: "optional",
-        fastlanePlus: "optional",
+        premium: true,
+        premiumFastlane: true,
       },
       {
-        label: "Simulator",
-        detail:
-          "Training auf unserem Simulator in unserer Filiale in der Schillerstraße. Die Reservierung einer Simulatorfahrstunde erfolgt über unser Büro.",
-        basic: "Pro Stunde",
-        fastlane: "Flat-Rate",
-        fastlanePlus: "Flat-Rate",
+        label: "Passbild & Sehtest",
+        detail: "Passbilder für den Führerscheinantrag und Sehtest vor Ort.",
+        basic: "optional",
+        premium: true,
+        premiumFastlane: true,
       },
     ],
   },
@@ -151,33 +157,41 @@ const featureGroups: FeatureGroup[] = [
     previewCount: 2,
     features: [
       {
+        label: "Neuer Fahrstundenpreis",
+        detail:
+          "Grundbetrag bleibt gleich, aber der Fahrstundenpreis kann für zukünftige Fahrstunden angepasst werden.",
+        basic: true,
+        premium: true,
+        premiumFastlane: true,
+      },
+      {
         label: "Pick Up Service",
         detail:
           "Deine Fahrstunde beginnt und endet an einem mit dem Fahrlehrer ausgemachten Wunschort in einem Umkreis von 5 km der Fahrschule.",
         basic: false,
-        fastlane: true,
-        fastlanePlus: true,
+        premium: true,
+        premiumFastlane: true,
       },
       {
         label: "Priorisierte Fahrstundenvergabe",
         detail:
           "Du wirst bei der Vergabe der Übungsstunden, Sonderfahrten sowie Prüfungsplätze bevorzugt.",
         basic: false,
-        fastlane: false,
-        fastlanePlus: true,
+        premium: false,
+        premiumFastlane: true,
       },
       {
         label: "Mindestens 2 Fahrstunden am Tag",
         basic: false,
-        fastlane: false,
-        fastlanePlus: true,
+        premium: false,
+        premiumFastlane: true,
       },
       {
         label: "Alle Pflichtstunden am Stück",
         detail: "Überlandfahrt, Autobahnfahrt und Nachtfahrt jeweils All-in-one buchbar.",
         basic: false,
-        fastlane: false,
-        fastlanePlus: true,
+        premium: false,
+        premiumFastlane: true,
       },
     ],
   },
@@ -191,46 +205,233 @@ const featureGroups: FeatureGroup[] = [
         detail:
           "Für die Teilnahme an einer Prüfung fallen Gebühren für den TÜV an. Die Fahrschule übernimmt die Abwicklung der Zahlung mit dem TÜV und begleicht die Gebühr im Namen des jeweiligen Schülers.",
         basic: true,
-        fastlane: true,
-        fastlanePlus: true,
+        premium: true,
+        premiumFastlane: true,
       },
       {
         label: "Prüfungssimulation Theorie",
         detail:
           "Wir führen mit dir unter den Vorgaben der theoretischen Prüfung eine Simulation in der Fahrschule durch.",
         basic: false,
-        fastlane: true,
-        fastlanePlus: true,
+        premium: true,
+        premiumFastlane: true,
       },
       {
         label: "Persönliche Betreuung am Prüfungstag",
         detail:
           "Wir begleiten dich zur (Theorie-)prüfung und betreuen dich vor Ort bei der Prüforganisation.",
         basic: false,
-        fastlane: true,
-        fastlanePlus: true,
+        premium: true,
+        premiumFastlane: true,
+      },
+      {
+        label: "Begleitung zur Theorieprüfung",
+        detail: "Wir begleiten dich persönlich zur Theorieprüfung.",
+        basic: false,
+        premium: false,
+        premiumFastlane: true,
       },
       {
         label: "Warm-up vor der Prüfung",
         detail:
           "Fahrt unmittelbar vor deiner praktischen Fahrerlaubnisprüfung zur Eingewöhnung.",
         basic: false,
-        fastlane: "15 Minuten",
-        fastlanePlus: "30 Minuten",
+        premium: "15 Minuten",
+        premiumFastlane: "30 Minuten",
       },
       {
         label: "Priorisierte Terminvergabe Prüfung",
         basic: false,
-        fastlane: false,
-        fastlanePlus: true,
+        premium: false,
+        premiumFastlane: true,
       },
       {
         label: "Testfahrt**",
         detail:
           "Intensive Vor- und Nachbesprechung, 15 Minuten Testfahrt & Nachweis über verantwortungsvolle und umweltbewusste Fahrweise.",
         basic: "optional",
-        fastlane: "optional",
-        fastlanePlus: "optional",
+        premium: "optional",
+        premiumFastlane: "optional",
+      },
+    ],
+  },
+]
+
+// ─── Motorrad Data ────────────────────────────────────────────────────────────
+
+const motorradPackages: { key: MotorradPackageKey; label: string; sublabel: string }[] = [
+  {
+    key: "basic",
+    label: "Basic",
+    sublabel: "Alles was du brauchst",
+  },
+  {
+    key: "premiumFastlane",
+    label: "Premium Fastlane",
+    sublabel: "Maximale Unterstützung",
+  },
+]
+
+const motorradFeatureGroups: FeatureGroup[] = [
+  {
+    id: "grundleistungen",
+    title: "Grundleistungen",
+    previewCount: 2,
+    features: [
+      {
+        label: "Antrags- & Behördenservice",
+        detail: "Wir übernehmen die Organisation für deinen Führerscheinantrag.",
+        basic: false,
+        premiumFastlane: true,
+      },
+      {
+        label: "Theorieunterricht im Block",
+        basic: true,
+        premiumFastlane: true,
+      },
+      {
+        label: "Wiederholer Grundbetrag kostenfrei",
+        detail:
+          "Bei Nichtbestehen der Theorieprüfung: weitere Teilnahme am Theorieunterricht kostenfrei.",
+        basic: false,
+        premiumFastlane: true,
+      },
+      {
+        label: "Preisgarantie",
+        detail: "Die Preisgarantie gilt für 12 Monate nach Vertragsunterzeichnung.",
+        basic: false,
+        premiumFastlane: true,
+      },
+      {
+        label: "Jokerkarten (kurzfristige Absage)",
+        detail:
+          "Jokerkarten, mit denen du entgegen der AGB eine Fahrstunde auch bei kurzer Benachrichtigungsfrist kostenfrei absagen kannst.",
+        basic: false,
+        premiumFastlane: "2 Joker",
+      },
+      {
+        label: "Expressantrag für deinen Führerschein",
+        detail:
+          "Wir sorgen, sofern möglich, für schnellstmögliche Bearbeitung deines Führerscheinantrages.",
+        basic: false,
+        premiumFastlane: true,
+      },
+    ],
+  },
+  {
+    id: "extras",
+    title: "Extras & Lernmaterial",
+    previewCount: 2,
+    features: [
+      {
+        label: "Erste-Hilfe-Kurs",
+        detail: "Pflichtnachweis vor der Theorieprüfung – 9 Stunden, 1 Kurstag.",
+        basic: "optional",
+        premiumFastlane: true,
+      },
+      {
+        label: "Lernpaket",
+        detail: "Spannende App für dein Smartphone, premium Workbook und E-Book.",
+        basic: "optional",
+        premiumFastlane: true,
+      },
+      {
+        label: "Passbild & Sehtest",
+        detail: "Passbilder für den Führerscheinantrag und Sehtest vor Ort.",
+        basic: "optional",
+        premiumFastlane: true,
+      },
+    ],
+  },
+  {
+    id: "fahrstunden",
+    title: "Fahrstunden-Service",
+    previewCount: 2,
+    features: [
+      {
+        label: "Neuer Fahrstundenpreis",
+        detail:
+          "Grundbetrag bleibt gleich, aber der Fahrstundenpreis kann für zukünftige Fahrstunden angepasst werden.",
+        basic: true,
+        premiumFastlane: true,
+      },
+      {
+        label: "Pick Up Service",
+        detail:
+          "Deine Fahrstunde beginnt und endet an einem mit dem Fahrlehrer ausgemachten Wunschort in einem Umkreis von 5 km der Fahrschule.",
+        basic: false,
+        premiumFastlane: true,
+      },
+      {
+        label: "Priorisierte Fahrstundenvergabe",
+        detail:
+          "Du wirst bei der Vergabe der Übungsstunden, Sonderfahrten sowie Prüfungsplätze bevorzugt.",
+        basic: false,
+        premiumFastlane: true,
+      },
+      {
+        label: "Mindestens 2 Fahrstunden am Tag",
+        basic: false,
+        premiumFastlane: true,
+      },
+      {
+        label: "Alle Pflichtstunden am Stück",
+        detail: "Überlandfahrt, Autobahnfahrt und Nachtfahrt jeweils All-in-one buchbar.",
+        basic: false,
+        premiumFastlane: true,
+      },
+    ],
+  },
+  {
+    id: "pruefung",
+    title: "Prüfungsvorbereitung",
+    previewCount: 2,
+    features: [
+      {
+        label: "Zahlungsabwicklung TÜV übernommen",
+        detail:
+          "Für die Teilnahme an einer Prüfung fallen Gebühren für den TÜV an. Die Fahrschule übernimmt die Abwicklung der Zahlung mit dem TÜV und begleicht die Gebühr im Namen des jeweiligen Schülers.",
+        basic: true,
+        premiumFastlane: true,
+      },
+      {
+        label: "Prüfungssimulation Theorie",
+        detail:
+          "Wir führen mit dir unter den Vorgaben der theoretischen Prüfung eine Simulation in der Fahrschule durch.",
+        basic: false,
+        premiumFastlane: true,
+      },
+      {
+        label: "Persönliche Betreuung am Prüfungstag",
+        detail:
+          "Wir begleiten dich zur (Theorie-)prüfung und betreuen dich vor Ort bei der Prüforganisation.",
+        basic: false,
+        premiumFastlane: true,
+      },
+      {
+        label: "Begleitung zur Theorieprüfung",
+        detail: "Wir begleiten dich persönlich zur Theorieprüfung.",
+        basic: false,
+        premiumFastlane: true,
+      },
+      {
+        label: "Warm-up vor der Prüfung",
+        detail:
+          "Fahrt unmittelbar vor deiner praktischen Fahrerlaubnisprüfung zur Eingewöhnung.",
+        basic: false,
+        premiumFastlane: "30 Minuten",
+      },
+      {
+        label: "Priorisierte Terminvergabe Prüfung",
+        basic: false,
+        premiumFastlane: true,
+      },
+      {
+        label: "Testfahrt**",
+        detail:
+          "Intensive Vor- und Nachbesprechung, 15 Minuten Testfahrt & Nachweis über verantwortungsvolle und umweltbewusste Fahrweise.",
+        basic: "optional",
+        premiumFastlane: "optional",
       },
     ],
   },
@@ -315,9 +516,16 @@ function FeatureRowItem({
   )
 }
 
-function MobilePackageView({ pkg }: { pkg: PackageKey }) {
-  const highlighted = pkg === "fastlane"
+function MobilePackageView({
+  pkg,
+  vehicleType,
+}: {
+  pkg: PackageKey
+  vehicleType: VehicleType
+}) {
+  const highlighted = pkg === "premium" || pkg === "premiumFastlane"
   const [expandedGroups, setExpandedGroups] = useState<Set<string>>(new Set())
+  const groups = vehicleType === "pkw" ? pkwFeatureGroups : motorradFeatureGroups
 
   function toggleExpand(id: string) {
     setExpandedGroups((prev) => {
@@ -328,8 +536,8 @@ function MobilePackageView({ pkg }: { pkg: PackageKey }) {
   }
 
   return (
-    <Accordion type="multiple" defaultValue={featureGroups.map((g) => g.id)} className="w-full">
-      {featureGroups.map((group) => {
+    <Accordion type="multiple" defaultValue={groups.map((g) => g.id)} className="w-full">
+      {groups.map((group) => {
         const isExpanded = expandedGroups.has(group.id)
         const preview = group.features.slice(0, group.previewCount)
         const hidden = group.features.slice(group.previewCount)
@@ -387,8 +595,13 @@ function MobilePackageView({ pkg }: { pkg: PackageKey }) {
 
 // ─── Desktop Comparison Grid ──────────────────────────────────────────────────
 
-function DesktopComparisonGrid() {
-  const [openGroups, setOpenGroups] = useState<string[]>(featureGroups.map((g) => g.id))
+function DesktopComparisonGrid({ vehicleType }: { vehicleType: VehicleType }) {
+  const packages = vehicleType === "pkw" ? pkwPackages : motorradPackages
+  const groups = vehicleType === "pkw" ? pkwFeatureGroups : motorradFeatureGroups
+  const colCount = packages.length
+  const gridCols = colCount === 2 ? "grid-cols-[2fr_1fr_1fr]" : "grid-cols-[2fr_1fr_1fr_1fr]"
+
+  const [openGroups, setOpenGroups] = useState<string[]>(groups.map((g) => g.id))
   const [expandedContent, setExpandedContent] = useState<Set<string>>(new Set())
 
   function toggleGroup(id: string) {
@@ -405,22 +618,24 @@ function DesktopComparisonGrid() {
     })
   }
 
+  const highlightedPkg = colCount === 3 ? "premium" : "premiumFastlane"
+
   return (
     <div className="hidden overflow-hidden rounded-2xl border border-border lg:block">
       {/* Header row */}
-      <div className="grid grid-cols-[2fr_1fr_1fr_1fr] border-b border-border bg-muted/30">
+      <div className={cn("grid border-b border-border bg-muted/30", gridCols)}>
         <div className="px-5 py-4" />
         {packages.map((pkg) => (
           <div
             key={pkg.key}
             className={cn(
               "flex flex-col items-center justify-center gap-1 px-4 py-4 text-center",
-              pkg.key === "fastlane" && "bg-primary/10"
+              pkg.key === highlightedPkg && "bg-primary/10"
             )}
           >
             <div className="flex items-center gap-1.5">
               <span className="text-base font-bold text-foreground">{pkg.label}</span>
-              {pkg.key === "fastlane" && (
+              {pkg.key === highlightedPkg && (
                 <span className="inline-flex items-center gap-0.5 rounded-full bg-primary px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-primary-foreground">
                   <Star className="h-2.5 w-2.5" />
                   Top
@@ -433,14 +648,14 @@ function DesktopComparisonGrid() {
       </div>
 
       {/* Feature groups */}
-      {featureGroups.map((group) => {
+      {groups.map((group) => {
         const isOpen = openGroups.includes(group.id)
         return (
           <div key={group.id} className="border-b border-border last:border-b-0">
             {/* Group header — acts as accordion trigger */}
             <button
               onClick={() => toggleGroup(group.id)}
-              className="grid w-full grid-cols-[2fr_1fr_1fr_1fr] items-center transition-colors hover:bg-muted/20"
+              className={cn("grid w-full items-center transition-colors hover:bg-muted/20", gridCols)}
             >
               <div className="flex items-center gap-2 px-5 py-3.5">
                 <svg
@@ -464,7 +679,7 @@ function DesktopComparisonGrid() {
                   key={pkg.key}
                   className={cn(
                     "px-4 py-3.5",
-                    pkg.key === "fastlane" && "bg-primary/5"
+                    pkg.key === highlightedPkg && "bg-primary/5"
                   )}
                 />
               ))}
@@ -483,7 +698,8 @@ function DesktopComparisonGrid() {
                     <div
                       key={i}
                       className={cn(
-                        "grid grid-cols-[2fr_1fr_1fr_1fr] items-center border-t border-border/40",
+                        "grid items-center border-t border-border/40",
+                        gridCols,
                         i % 2 === 0 ? "bg-background" : "bg-muted/20"
                       )}
                     >
@@ -500,20 +716,20 @@ function DesktopComparisonGrid() {
                           key={pkg.key}
                           className={cn(
                             "flex items-center justify-center px-4 py-3",
-                            pkg.key === "fastlane" && "bg-primary/5"
+                            pkg.key === highlightedPkg && "bg-primary/5"
                           )}
                         >
                           <ValueCell
                             value={feature[pkg.key]}
-                            highlighted={pkg.key === "fastlane"}
+                            highlighted={pkg.key === highlightedPkg}
                           />
                         </div>
                       ))}
                     </div>
                   ))}
                   {hasMore && (
-                    <div className="grid grid-cols-[2fr_1fr_1fr_1fr] border-t border-border/40">
-                      <div className="col-span-4 px-5 py-2">
+                    <div className={cn("grid border-t border-border/40", gridCols)}>
+                      <div className={cn("px-5 py-2", colCount === 2 ? "col-span-3" : "col-span-4")}>
                         <button
                           onClick={() => toggleExpand(group.id)}
                           className="flex items-center gap-1.5 text-xs font-semibold text-primary transition-colors hover:text-primary/80"
@@ -544,7 +760,10 @@ function DesktopComparisonGrid() {
 // ─── Section ──────────────────────────────────────────────────────────────────
 
 export function TarifeSection() {
-  const [activeTab, setActiveTab] = useState<PackageKey>("fastlane")
+  const [vehicleType, setVehicleType] = useState<VehicleType>("pkw")
+  const [activeTab, setActiveTab] = useState<PackageKey>("premium")
+
+  const packages = vehicleType === "pkw" ? pkwPackages : motorradPackages
 
   return (
     <section className="relative bg-background py-14 md:py-16">
@@ -559,9 +778,45 @@ export function TarifeSection() {
             Unsere <span className="text-primary">Tarife</span>
           </h2>
           <p className="mx-auto max-w-xl text-base leading-relaxed text-muted-foreground">
-            Basic, Fastlane oder Fastlane Plus – wähle das Paket, das zu dir und
+            Basic, Premium oder Premium Fastlane – wähle das Paket, das zu dir und
             deinem Tempo passt.
           </p>
+        </div>
+
+        {/* Vehicle type switcher */}
+        <div className="mb-8 flex justify-center">
+          <div className="inline-flex rounded-xl border border-border bg-muted/40 p-1">
+            <button
+              onClick={() => {
+                setVehicleType("pkw")
+                setActiveTab("premium")
+              }}
+              className={cn(
+                "flex items-center gap-1.5 rounded-lg px-4 py-2.5 text-sm font-semibold transition-all",
+                vehicleType === "pkw"
+                  ? "bg-background text-foreground shadow-sm"
+                  : "text-muted-foreground hover:text-foreground"
+              )}
+            >
+              <Car className="h-4 w-4" />
+              Klasse B
+            </button>
+            <button
+              onClick={() => {
+                setVehicleType("motorrad")
+                setActiveTab("premiumFastlane")
+              }}
+              className={cn(
+                "flex items-center gap-1.5 rounded-lg px-4 py-2.5 text-sm font-semibold transition-all",
+                vehicleType === "motorrad"
+                  ? "bg-background text-foreground shadow-sm"
+                  : "text-muted-foreground hover:text-foreground"
+              )}
+            >
+              <Bike className="h-4 w-4" />
+              Motorrad
+            </button>
+          </div>
         </div>
 
         {/* ── Mobile: Tab switcher + single-package view ── */}
@@ -579,14 +834,14 @@ export function TarifeSection() {
                   className={cn(
                     "flex-1 rounded-lg px-2 py-2.5 text-xs font-semibold transition-all",
                     activeTab === pkg.key
-                      ? pkg.key === "fastlane"
+                      ? pkg.key === "premium" || pkg.key === "premiumFastlane"
                         ? "bg-primary text-primary-foreground shadow-sm"
                         : "bg-background text-foreground shadow-sm"
                       : "text-muted-foreground hover:text-foreground"
                   )}
                 >
                   {pkg.label}
-                  {pkg.key === "fastlane" && activeTab !== "fastlane" && (
+                  {(pkg.key === "premium" || pkg.key === "premiumFastlane") && activeTab !== pkg.key && (
                     <span className="ml-1 inline-block h-1.5 w-1.5 rounded-full bg-primary" />
                   )}
                 </button>
@@ -597,11 +852,11 @@ export function TarifeSection() {
             </p>
           </div>
 
-          <MobilePackageView pkg={activeTab} />
+          <MobilePackageView pkg={activeTab} vehicleType={vehicleType} />
         </div>
 
         {/* ── Desktop: Comparison grid ── */}
-        <DesktopComparisonGrid />
+        <DesktopComparisonGrid vehicleType={vehicleType} />
 
         {/* Footnotes */}
         <p className="mt-4 text-xs leading-relaxed text-muted-foreground">
@@ -630,7 +885,7 @@ export function TarifeSection() {
 
       {/* Bottom jagged edge divider */}
       <div
-        className="pointer-events-none absolute -bottom-px left-0 right-0 h-12 bg-muted/30 md:h-16 [clip-path:polygon(0_100%,0_72%,10%_100%,20%_72%,30%_100%,40%_72%,50%_100%,60%_72%,70%_100%,80%_72%,90%_100%,100%_72%,100%_100%)]"
+        className="pointer-events-none absolute -bottom-px left-0 right-0 h-12 bg-muted/30 md:h-16 [clip-path:polygon(0_100%,0_72%,10%_100%,20%_72%,30%_100%,40%_72%,50%_100%,60%_72%,70%_100%,80%_72%,90%_100%,100%_72%,100_100%)]"
       />
     </section>
   )

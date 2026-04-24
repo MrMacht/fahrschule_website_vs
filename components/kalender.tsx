@@ -87,9 +87,8 @@ function formatShortDate(date: Date) {
 
 export function Kalender() {
   const daten = kalenderTermine as KalenderDaten
-  const firstTerminDate = daten.termine[0]?.datum ?? `${daten.jahr}-01-01`
 
-  const [currentMonth, setCurrentMonth] = useState(parseIsoDate(firstTerminDate))
+  const [currentMonth, setCurrentMonth] = useState(new Date())
   const [selectedDate, setSelectedDate] = useState<Date | null>(null)
 
   // Lookup maps
@@ -242,8 +241,9 @@ export function Kalender() {
                 const dayStyle =
                   hasEvent && hex
                     ? {
-                        backgroundColor: hexToRgba(hex, isSelected ? 0.75 : 0.22),
-                        borderColor: hexToRgba(hex, 0.8),
+                        backgroundColor: hexToRgba(hex, isSelected ? 0.75 : 0.4),
+                        borderColor: hex,
+                        color: "#111827",
                       }
                     : undefined
 
@@ -254,12 +254,12 @@ export function Kalender() {
                     disabled={!hasEvent}
                     style={dayStyle}
                     className={`relative aspect-square rounded-md border p-0.5 text-xs transition-all
-                      ${hasEvent ? "cursor-pointer font-semibold text-foreground hover:brightness-95" : "cursor-not-allowed border-border/40 text-muted-foreground/40"}
+                      ${hasEvent ? "cursor-pointer font-semibold hover:brightness-95" : "cursor-not-allowed border-border text-muted-foreground/50"}
                       ${isSelected ? "ring-2 ring-primary ring-offset-1" : ""}
-                      ${isToday && !isSelected ? "ring-2 ring-primary/50 ring-offset-1" : ""}`}
+                      ${isToday && !isSelected ? "ring-2 ring-primary ring-offset-1" : ""}`}
                   >
                     <span className="flex h-full w-full flex-col items-center justify-center">
-                      <span>{day}</span>
+                      <span className="text-sm font-bold">{day}</span>
                       {hasEvent && termin && termin.block_id.startsWith("B-") && (
                         <span className="mt-0.5 text-[7px] leading-none opacity-60">
                           {termin.block_tag}/7

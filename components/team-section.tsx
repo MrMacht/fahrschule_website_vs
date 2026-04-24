@@ -19,10 +19,10 @@ export function TeamSection() {
 
         <div className="grid gap-6 lg:grid-cols-3">
           <article className="rounded-2xl border border-border bg-card p-4 shadow-sm">
-            <div className="relative mb-4 aspect-[4/3] overflow-hidden rounded-xl border border-border/70 bg-muted">
+            <div className="relative mb-4 aspect-[3/4] overflow-hidden rounded-xl border border-border/70 bg-muted">
               <Image
-                src="/team-besitzerin-1.svg"
-                alt="Platzhalterbild Besitzerin 1"
+                src="/Viola.jpeg"
+                alt="Viola Buchhold"
                 fill
                 className="object-cover"
               />
@@ -35,10 +35,10 @@ export function TeamSection() {
           </article>
 
           <article className="rounded-2xl border border-border bg-card p-4 shadow-sm">
-            <div className="relative mb-4 aspect-[4/3] overflow-hidden rounded-xl border border-border/70 bg-muted">
+            <div className="relative mb-4 aspect-[3/4] overflow-hidden rounded-xl border border-border/70 bg-muted">
               <Image
-                src="/team-besitzerin-2.svg"
-                alt="Platzhalterbild Besitzerin 2"
+                src="/Sophie.jpeg"
+                alt="Sophie Buchhold"
                 fill
                 className="object-cover"
               />

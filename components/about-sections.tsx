@@ -69,15 +69,11 @@ export function AboutSections() {
             <article className="w-full max-w-sm rounded-2xl border border-border bg-card p-4 text-center shadow-sm">
               <div className="relative aspect-[3/4] overflow-hidden rounded-xl border border-border/70 bg-muted">
                 <Image
-                  src="/Placeholder1_Blue.jpeg"
-                  alt="Platzhalterbild Besitzerin 1"
+                  src="/Viola.jpeg"
+                  alt="Viola Buchhold"
                   fill
                   className="object-cover"
                 />
-                <div className="pointer-events-none absolute inset-0">
-                  <div className="absolute -left-12 top-8 h-3 w-56 -rotate-[18deg] bg-primary/55" />
-                  <div className="absolute -left-10 top-16 h-2 w-48 -rotate-[18deg] bg-accent/45" />
-                </div>
               </div>
               <h3 className="mt-4 text-lg font-semibold text-card-foreground">Viola Buchhold</h3>
               <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
@@ -89,15 +85,11 @@ export function AboutSections() {
             <article className="w-full max-w-sm rounded-2xl border border-border bg-card p-4 text-center shadow-sm">
               <div className="relative aspect-[3/4] overflow-hidden rounded-xl border border-border/70 bg-muted">
                 <Image
-                  src="/Placholder2_Pink.jpeg"
-                  alt="Platzhalterbild Besitzerin 2"
+                  src="/Sophie.jpeg"
+                  alt="Sophie Buchhold"
                   fill
                   className="object-cover"
                 />
-                <div className="pointer-events-none absolute inset-0">
-                  <div className="absolute -right-12 top-10 h-3 w-56 rotate-[18deg] bg-accent/60" />
-                  <div className="absolute -right-10 top-[4.5rem] h-2 w-48 rotate-[18deg] bg-primary/45" />
-                </div>
               </div>
               <h3 className="mt-4 text-lg font-semibold text-card-foreground">Sophie Buchhold</h3>
               <p className="mt-2 text-sm leading-relaxed text-muted-foreground">

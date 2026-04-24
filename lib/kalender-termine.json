@@ -2,11 +2,11 @@
   "jahr": 2026,
   "lehrplan_info": "Grundstoff: 12 Lektionen (6 Abende je Block) · Zusatzstoff B: 2 Lektionen (1 Abend) · Zusatzstoff Motorrad: 4 Lektionen (2 Abende) · Ferienkurse: Alle Pflichtlektionen kompakt in den Schulferien",
   "kurs_typen": [
-    { "id": "grundstoff",           "label": "Grundstoff",               "hex": "#3B82F6", "lektionen_gesamt": 12, "beschreibung": "12 Pflichtlektionen für alle Führerscheinklassen" },
-    { "id": "zusatzstoff_b",        "label": "Zusatzstoff Klasse B",     "hex": "#10B981", "lektionen_gesamt": 2,  "beschreibung": "2 Pflichtlektionen speziell für den Pkw-Führerschein (Klasse B)" },
-    { "id": "zusatzstoff_motorrad", "label": "Zusatzstoff Motorrad",     "hex": "#F97316", "lektionen_gesamt": 4,  "beschreibung": "4 Pflichtlektionen für Klasse A, A1, A2 und AM" },
-    { "id": "erste_hilfe",          "label": "Erste-Hilfe-Kurs",         "hex": "#EF4444", "lektionen_gesamt": 0,  "beschreibung": "Pflichtnachweis vor der Theorieprüfung – 9 Stunden, 1 Kurstag" },
-    { "id": "ferienkurs",           "label": "Ferienkurs (Intensiv)",    "hex": "#F59E0B", "lektionen_gesamt": 0,  "beschreibung": "Alle Pflichtlektionen kompakt in einem Zug – ideal in den Schulferien" }
+    { "id": "grundstoff",           "label": "Grundstoff",               "hex": "#1D4ED8", "lektionen_gesamt": 12, "beschreibung": "12 Pflichtlektionen für alle Führerscheinklassen" },
+    { "id": "zusatzstoff_b",        "label": "Zusatzstoff Klasse B",     "hex": "#15803D", "lektionen_gesamt": 2,  "beschreibung": "2 Pflichtlektionen speziell für den Pkw-Führerschein (Klasse B)" },
+    { "id": "zusatzstoff_motorrad", "label": "Zusatzstoff Motorrad",     "hex": "#C026D3", "lektionen_gesamt": 4,  "beschreibung": "4 Pflichtlektionen für Klasse A, A1, A2 und AM" },
+    { "id": "erste_hilfe",          "label": "Erste-Hilfe-Kurs",         "hex": "#DC2626", "lektionen_gesamt": 0,  "beschreibung": "Pflichtnachweis vor der Theorieprüfung – 9 Stunden, 1 Kurstag" },
+    { "id": "ferienkurs",           "label": "Ferienkurs (Intensiv)",    "hex": "#B45309", "lektionen_gesamt": 0,  "beschreibung": "Alle Pflichtlektionen kompakt in einem Zug – ideal in den Schulferien" }
   ],
   "lehrplan": [
     { "nummer": 1,  "thema": "Persönliche Voraussetzungen",             "kurs_typ": "grundstoff" },

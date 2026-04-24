@@ -1,29 +1,30 @@
-import { BadgeCheck, BookOpenCheck, Camera, Eye, HeartPulse } from "lucide-react"
+import {
+  BadgeCheck,
+  BookOpenCheck,
+  Camera,
+  Eye,
+  HeartPulse,
+  MapPin,
+} from "lucide-react"
 
-const features = [
-  {
-    icon: <BookOpenCheck className="h-5 w-5 text-primary" />,
-    title: "Theorie im Blockunterricht",
-    description:
-      "Unsere Theoriestunden laufen gebundelt im Blockformat - so kommst du schnell und ohne lange Pausen durch den gesamten Stoff.",
-  },
+const onSiteServices = [
   {
     icon: <HeartPulse className="h-5 w-5 text-primary" />,
-    title: "Erste-Hilfe-Kurs direkt bei uns",
+    title: "Erste-Hilfe-Kurs",
     description:
-      "Den verpflichtenden Erste-Hilfe-Kurs kannst du unkompliziert direkt in der Fahrschule absolvieren - ohne externe Termine.",
+      "Den verpflichtenden Kurs kannst du unkompliziert direkt bei uns absolvieren.",
   },
   {
     icon: <Eye className="h-5 w-5 text-primary" />,
     title: "Sehtest vor Ort",
     description:
-      "Auch den Sehtest bieten wir direkt vor Ort an. Damit hast du alle wichtigen Nachweise schnell an einem Ort erledigt.",
+      "Auch den Sehtest bieten wir direkt in der Fahrschule an.",
   },
   {
     icon: <Camera className="h-5 w-5 text-primary" />,
     title: "Passbild direkt bei uns",
     description:
-      "Auch dein Passbild für den Führerscheinantrag kannst du direkt bei uns machen lassen – kein extra Termin beim Fotografen nötig.",
+      "Dein Passbild für den Führerscheinantrag machst du direkt bei uns.",
   },
 ]
 
@@ -45,23 +46,45 @@ export function FeaturesSection() {
           </p>
         </div>
 
-        <div className="grid gap-4 md:grid-cols-3">
-          {features.map((feature) => (
-            <article
-              key={feature.title}
-              className="rounded-2xl border border-white/20 bg-white/[0.04] p-5 shadow-lg"
-            >
-              <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10">
-                {feature.icon}
-              </div>
-              <h3 className="mb-2 text-base font-semibold text-white">
-                {feature.title}
-              </h3>
-              <p className="text-sm leading-relaxed text-zinc-300">
-                {feature.description}
-              </p>
-            </article>
-          ))}
+        <div className="grid gap-6 md:grid-cols-2">
+          {/* ── Kachel 1: Blockunterricht ── */}
+          <article className="flex flex-col rounded-2xl border border-white/20 bg-white/[0.04] p-6 shadow-lg md:p-8">
+            <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10">
+              <BookOpenCheck className="h-6 w-6 text-primary" />
+            </div>
+            <h3 className="mb-3 text-xl font-semibold text-white">
+              Theorie im Blockunterricht
+            </h3>
+            <p className="text-base leading-relaxed text-zinc-300">
+              Unsere Theoriestunden laufen gebündelt im Blockformat – so kommst du schnell und ohne lange Pausen durch den gesamten Stoff.
+            </p>
+          </article>
+
+          {/* ── Kachel 2: Leistungen vor Ort ── */}
+          <article className="flex flex-col rounded-2xl border border-white/20 bg-white/[0.04] p-6 shadow-lg md:p-8">
+            <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10">
+              <MapPin className="h-6 w-6 text-primary" />
+            </div>
+            <h3 className="mb-4 text-xl font-semibold text-white">
+              Alles aus einer Hand
+            </h3>
+
+            <div className="grid gap-4 sm:grid-cols-3">
+              {onSiteServices.map((service) => (
+                <div key={service.title}>
+                  <div className="mb-2 flex h-9 w-9 items-center justify-center rounded-lg bg-primary/10">
+                    {service.icon}
+                  </div>
+                  <h4 className="mb-1 text-sm font-semibold text-white">
+                    {service.title}
+                  </h4>
+                  <p className="text-xs leading-relaxed text-zinc-400">
+                    {service.description}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </article>
         </div>
 
         <div className="mt-6 rounded-2xl border border-primary/55 bg-primary/20 p-4 shadow-md md:p-5">
@@ -74,7 +97,7 @@ export function FeaturesSection() {
       </div>
 
       <div
-        className="pointer-events-none absolute -bottom-px left-0 right-0 h-12 md:h-16 bg-white [clip-path:polygon(0_100%,0_72%,10%_100%,20%_72%,30%_100%,40%_72%,50%_100%,60%_72%,70%_100%,80%_72%,90%_100%,100%_72%,100%_100%)]"
+        className="pointer-events-none absolute -bottom-px left-0 right-0 h-12 bg-white [clip-path:polygon(0_100%,0_72%,10%_100%,20%_72%,30%_100%,40%_72%,50%_100%,60%_72%,70%_100%,80%_72%,90%_100%,100%_72%,100%_100%)] md:h-16"
       />
     </section>
   )
