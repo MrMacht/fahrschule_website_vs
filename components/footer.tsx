@@ -1,4 +1,7 @@
+"use client"
+
 import Image from "next/image"
+import { openCookieSettings } from "@/components/cookie-consent"
 
 export function Footer() {
   return (
@@ -74,6 +77,14 @@ export function Footer() {
                 <a href="/datenschutz" className="transition-colors hover:text-foreground">
                   Datenschutz
                 </a>
+              </li>
+              <li>
+                <button
+                  onClick={openCookieSettings}
+                  className="text-left transition-colors hover:text-foreground"
+                >
+                  Cookie-Einstellungen
+                </button>
               </li>
             </ul>
           </div>
