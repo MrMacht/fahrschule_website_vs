@@ -9,6 +9,7 @@ import kalenderTermine from "@/lib/kalender-termine.json"
 interface KalenderTermin {
   datum: string
   kurs_typ: string
+  uhrzeit?: string
   block_id: string
   block_tag: number
   lektionen: number[]
@@ -184,13 +185,13 @@ export function Kalender() {
       <div className="mx-auto max-w-5xl px-6">
         <div className="mb-10 max-w-2xl">
           <p className="mb-3 text-sm font-semibold uppercase tracking-widest text-primary">
-            Theorie-Kalender {daten.jahr}
+            Termin-Kalender {daten.jahr}
           </p>
           <h2 className="text-balance text-3xl font-bold tracking-tight text-foreground md:text-4xl">
-            Dein Theorieplan auf einen Blick
+            Behaltet den Überblick
           </h2>
           <p className="mt-3 text-base leading-relaxed text-muted-foreground">
-            {daten.lehrplan_info}
+            Behaltet zukünftig den Überblick – hier findet ihr alle Termine auf einen Blick.
           </p>
         </div>
 
@@ -299,11 +300,18 @@ export function Kalender() {
               <div className="rounded-2xl border border-border/80 bg-card p-4 shadow-md">
                 {/* Datum + Badge */}
                 <div className="mb-3 flex items-start justify-between gap-2">
-                  <h4 className="text-sm font-semibold text-card-foreground">
-                    {weekdayNames[selectedDate.getDay()]},{" "}
-                    {selectedDate.getDate()}. {monthNames[selectedDate.getMonth()].slice(0, 3)}.{" "}
-                    {selectedDate.getFullYear()}
-                  </h4>
+                  <div>
+                    <h4 className="text-sm font-semibold text-card-foreground">
+                      {weekdayNames[selectedDate.getDay()]},{" "}
+                      {selectedDate.getDate()}. {monthNames[selectedDate.getMonth()].slice(0, 3)}.{" "}
+                      {selectedDate.getFullYear()}
+                    </h4>
+                    {selectedTermin.uhrzeit && (
+                      <p className="mt-0.5 text-xs text-muted-foreground">
+                        {selectedTermin.uhrzeit}
+                      </p>
+                    )}
+                  </div>
                   <Badge
                     className="shrink-0 text-xs"
                     style={{
@@ -346,7 +354,7 @@ export function Kalender() {
                 {selectedTermin.lektionen.length > 0 ? (
                   <div className="flex flex-col gap-2">
                     <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                      Heutige Lektionen
+                      Programm
                     </p>
                     {selectedTermin.lektionen.map((nr) => {
                       const lektion = lehrplanMap.get(nr)
@@ -419,7 +427,7 @@ export function Kalender() {
                 )}
 
                 <p className="mt-3 text-xs text-muted-foreground/50">
-                  Klicke auf einen farbigen Tag für Details.
+                  Klicke auf einen markierten Tag für Details.
                 </p>
               </div>
             )}
