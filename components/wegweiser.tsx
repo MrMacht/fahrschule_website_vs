@@ -16,7 +16,7 @@ const steps = [
     number: "01",
     title: "Anmeldung",
     description:
-      "Melde dich bei uns an - online, telefonisch oder direkt vor Ort. Wir beraten dich kostenlos und unverbindlich.",
+      "Melde dich bei uns an – telefonisch oder direkt vor Ort. Wir beraten dich kostenlos und unverbindlich.",
     icon: ClipboardList,
   },
   {
