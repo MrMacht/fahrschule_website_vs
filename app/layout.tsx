@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
+import { CookieConsent } from '@/components/cookie-consent'
 
 const _inter = Inter({ subsets: ['latin'] })
 
@@ -42,6 +43,7 @@ export default function RootLayout({
     <html lang="de">
       <body className="font-sans antialiased">
         {children}
+        <CookieConsent />
       </body>
     </html>
   )
